@@ -1,0 +1,171 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Min Calendar\n"
+"POT-Creation-Date: 2013-06-02 16:11+0900\n"
+"PO-Revision-Date: 2013-06-02 17:26+0900\n"
+"Last-Translator: Hiroshi Sawai <info@info-town.jp>\n"
+"Language-Team: Hiroshi Sawai <info@info-town.jp>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.5\n"
+"X-Poedit-KeywordsList: _e;__\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: wp-content/plugins/min-calendar\n"
+
+#: wordpress/wp-content/plugins/min-calendar/class-main.php:62
+#: wordpress/wp-content/plugins/min-calendar/class-main.php:63
+#: wordpress/wp-content/plugins/min-calendar/admin/class-admin-controller.php:39
+#: wordpress/wp-content/plugins/min-calendar/admin/class-admin-controller.php:40
+#: wordpress/wp-content/plugins/min-calendar/admin/class-admin-controller.php:97
+#: wordpress/wp-content/plugins/min-calendar/admin/class-admin-controller.php:183
+msgid "Min Calendar"
+msgstr ""
+
+#: wordpress/wp-content/plugins/min-calendar/admin/class-admin-action.php:87
+msgid "Calendar Forms"
+msgstr ""
+
+#: wordpress/wp-content/plugins/min-calendar/admin/class-admin-action.php:110
+#: wordpress/wp-content/plugins/min-calendar/admin/class-admin-action.php:150
+msgid "You are not allowed to edit this item."
+msgstr ""
+
+#: wordpress/wp-content/plugins/min-calendar/admin/class-admin-action.php:200
+msgid "You are not allowed to delete this item."
+msgstr ""
+
+#: wordpress/wp-content/plugins/min-calendar/admin/class-admin-action.php:204
+msgid "Error in deleting."
+msgstr ""
+
+#: wordpress/wp-content/plugins/min-calendar/admin/class-admin-controller.php:50
+msgid "Edit Calendar"
+msgstr ""
+
+#: wordpress/wp-content/plugins/min-calendar/admin/class-admin-controller.php:51
+#: wordpress/wp-content/plugins/min-calendar/admin/class-list-table.php:133
+msgid "Edit"
+msgstr ""
+
+#: wordpress/wp-content/plugins/min-calendar/admin/class-admin-controller.php:63
+msgid "Edit Appearance"
+msgstr ""
+
+#: wordpress/wp-content/plugins/min-calendar/admin/class-admin-controller.php:64
+msgid "Appearance"
+msgstr ""
+
+#: wordpress/wp-content/plugins/min-calendar/admin/class-admin-controller.php:99
+msgid "Add New"
+msgstr ""
+
+#: wordpress/wp-content/plugins/min-calendar/admin/class-admin-controller.php:103
+#, php-format
+msgid "Search results for &#8220;%s&#8221;"
+msgstr ""
+
+#: wordpress/wp-content/plugins/min-calendar/admin/class-admin-controller.php:109
+msgid "Search Calendar"
+msgstr ""
+
+#: wordpress/wp-content/plugins/min-calendar/admin/class-appearance.php:18
+msgid "You do not have sufficient permissions to access this page"
+msgstr ""
+
+#: wordpress/wp-content/plugins/min-calendar/admin/class-appearance.php:189
+msgid "Can not open file"
+msgstr ""
+
+#: wordpress/wp-content/plugins/min-calendar/admin/class-appearance.php:262
+#: wordpress/wp-content/plugins/min-calendar/admin/class-post-form.php:72
+msgid "Save"
+msgstr ""
+
+#: wordpress/wp-content/plugins/min-calendar/admin/class-custom-field.php:44
+msgid "Year"
+msgstr ""
+
+#: wordpress/wp-content/plugins/min-calendar/admin/class-list-table.php:31
+msgid "Title"
+msgstr ""
+
+#: wordpress/wp-content/plugins/min-calendar/admin/class-list-table.php:32
+msgid "Shortcode"
+msgstr ""
+
+#: wordpress/wp-content/plugins/min-calendar/admin/class-list-table.php:33
+msgid "Author"
+msgstr ""
+
+#: wordpress/wp-content/plugins/min-calendar/admin/class-list-table.php:34
+msgid "Date"
+msgstr ""
+
+#: wordpress/wp-content/plugins/min-calendar/admin/class-list-table.php:144
+#: wordpress/wp-content/plugins/min-calendar/admin/class-post-form.php:82
+msgid "Copy"
+msgstr ""
+
+#: wordpress/wp-content/plugins/min-calendar/admin/class-list-table.php:151
+#, php-format
+msgid "Edit &#8220;%s&#8221;"
+msgstr ""
+
+#: wordpress/wp-content/plugins/min-calendar/admin/class-list-table.php:192
+msgid "Y/m/d g:i:s A"
+msgstr ""
+
+#: wordpress/wp-content/plugins/min-calendar/admin/class-list-table.php:199
+#, php-format
+msgid "%s ago"
+msgstr ""
+
+#: wordpress/wp-content/plugins/min-calendar/admin/class-list-table.php:201
+msgid "Y/m/d"
+msgstr ""
+
+#: wordpress/wp-content/plugins/min-calendar/admin/class-post-form.php:29
+msgid "Min Calendar Post"
+msgstr ""
+
+#: wordpress/wp-content/plugins/min-calendar/admin/class-post-form.php:61
+msgid ""
+"Copy this code and paste it into your post, page or text widget content."
+msgstr ""
+
+#: wordpress/wp-content/plugins/min-calendar/admin/class-post-form.php:66
+msgid "Old code is also available."
+msgstr ""
+
+#: wordpress/wp-content/plugins/min-calendar/admin/class-post-form.php:86
+msgid "Delete"
+msgstr ""
+
+#: wordpress/wp-content/plugins/min-calendar/admin/class-post-form.php:87
+msgid ""
+"You are about to delete this contact form.\n"
+"  'Cancel' to stop, 'OK' to delete."
+msgstr ""
+
+#: wordpress/wp-content/plugins/min-calendar/includes/class-post-factory.php:26
+msgid "Untitled"
+msgstr ""
+
+#: wordpress/wp-content/plugins/min-calendar/includes/class-utilities.php:29
+msgid "Validation errors occurred"
+msgstr ""
+
+#: wordpress/wp-content/plugins/min-calendar/includes/class-utilities.php:30
+msgid ""
+"Validation errors occurred. Please confirm the fields and submit it again."
+msgstr ""
+
+#: wordpress/wp-content/plugins/min-calendar/includes/class-utilities.php:34
+msgid "There are terms that the sender must accept"
+msgstr ""
+
+#: wordpress/wp-content/plugins/min-calendar/includes/class-utilities.php:35
+msgid "Please accept the terms to proceed."
+msgstr ""
