@@ -7,11 +7,11 @@ Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-
 == Description ==
 
 create shortcode for minimal calendar
 
+== Frequently Asked Questions ==
 
 == Installation ==
 
@@ -20,12 +20,13 @@ create shortcode for minimal calendar
 
 == Screenshots ==
 
-
 == Changelog ==
 
 = 1.0.0 =
+
 * First stable version
 
+== Upgrade Notice ==
 
 == Arbitrary section ==
 
