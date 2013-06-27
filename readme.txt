@@ -29,11 +29,9 @@ create shortcode for minimal calendar
 
 * Add setting of sunday and saturday heading color to Appearance
 
-
-
 = 1.0.2 =
 
-* Add setting of sunday and saturday heading color to Appearance
+* How to use a subversion is mistaken.
 
 = 1.0.1 =
 
