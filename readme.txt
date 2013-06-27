@@ -3,7 +3,7 @@ Contributors: s-hiroshi
 Tags: editor
 Requires at least: 3.5.1
 Tested up to: 3.5.1
-Stable tag: 1.0.3
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -25,7 +25,7 @@ create shortcode for minimal calendar
 
 == Changelog ==
 
-= 1.0.3 =
+= 1.1.0 =
 
 * Add setting of sunday and saturday heading color to Appearance
 
@@ -35,7 +35,7 @@ create shortcode for minimal calendar
 
 = 1.0.1 =
 
-* Add setting of sunday and saturday heading color to Appearance
+* How to use a subversion is mistaken.
 
 = 1.0.0 =
 
