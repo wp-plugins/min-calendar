@@ -3,7 +3,7 @@ Contributors: s-hiroshi
 Tags: editor
 Requires at least: 3.5.1
 Tested up to: 3.5.1
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -11,6 +11,8 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 create shortcode for minimal calendar
 
+管理画面でシンプルなカレンダー用ショートコードを作成します。
+作成したショートコードを投稿の入力エディタに挿入してカレンダーを表示します。
 
 == Frequently Asked Questions ==
 
@@ -35,7 +37,9 @@ create shortcode for minimal calendar
 
 == Arbitrary section ==
 
+
 管理画面でシンプルなカレンダー用ショートコードを作成します。
+作成したショートコードを投稿の入力エディタに挿入してカレンダーを表示します。
 
 
 This plug-in was created in response to the inspiration to Contact Form 7.
