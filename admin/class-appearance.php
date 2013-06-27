@@ -2,7 +2,7 @@
 /**
  * MC_Appearance
  *
- * カレンダーAppearance設定
+ * カレンダーのAppearance設定
  *
  * appearanceは全カレンダーで共通。
  * 個別に設定することはできない。
@@ -11,17 +11,24 @@
 class MC_Appearance
 {
     /**
-     * wp_optionsへ'mincalendar-options'をキーとして登録
      *
-     * @var array $options
+     * @var array $options wp_optionsテーブルへmincalendar-optionsをキーとして登録する
      */
     private $options = array();
+    /**
+     * @var array $errors 正しくない入力が行われたキーの配列
+     */
     private $errors  = array();
+    /**
+     * @var string $css CSS文字列
+     */
     private $css = '';
 
 
     /**
-     * optionのアップデート
+     * $options連想配列のアップデート
+     *
+     * wp_optionsテーブルのmincalendar-optionキーの値を更新
      *
      * @param $key
      * @param string $referer
@@ -56,7 +63,7 @@ class MC_Appearance
 
 
     /**
-     * オプションアップデート準備
+     * フォーム入力値を検査しadd_option関数へ渡す
      *
      * @param string $key 更新対象のキー
      * @return mix キーが存在すれば整形された値、キーが無いときはfalse
@@ -77,10 +84,10 @@ class MC_Appearance
 
 
     /**
-     * 幅・高さを設定
+     * 幅・高さの入力値を検査・整形
      *
      * @param string $key 更新対象のキー
-     * @return mix キーが存在すれば整形された値、キーが無いときはfalse
+     * @return mix 入力値が正しくない場合はerror配列に追加してfalseを返す
      */
     private function prepare_size( $key, $selector, $property )
     {
@@ -103,7 +110,10 @@ class MC_Appearance
 
 
     /**
-     * ボーダー設定
+     * ボーダーの入力値を検査・整形
+     *
+     * @param string $key 更新対象キー
+     * @return boolean 入力値が正しくない場合はerror配列に追加してfalseを返す
      */
     private function prepare_border( $key, $selector )
     {
@@ -215,6 +225,10 @@ class MC_Appearance
         $this->prepare( 'mc-value-2nd' );
         $this->prepare( 'mc-value-3rd' );
 
+        // 日曜・土曜の見出しカラー
+        $this->prepare_color( 'mincalendar-th-sun', '.mincalendar-th-sun', 'color');
+        $this->prepare_color( 'mincalendar-th-sat', '.mincalendar-th-sat', 'color');
+
         // 幅・高さ
         $this->prepare_size( 'mc-width-th', '.mincalendar th', 'width' );
         $this->prepare_size( 'mc-height-th', '.mincalendar th', 'height' );
@@ -279,6 +293,8 @@ class MC_Appearance
                 <?php echo $this->create_field( 'thursday', 'mc-thu' ) ; ?>
                 <?php echo $this->create_field( 'friday', 'mc-fri' ) ; ?>
                 <?php echo $this->create_field( 'saturday', 'mc-sat' ) ; ?>
+                <?php echo $this->create_field( 'sunday heading text color', 'mincalendar-th-sun', '(e.g #ff0000)' ) ; ?>
+                <?php echo $this->create_field( 'satday heading text color', 'mincalendar-th-sat', '(e.g #0000ff)' ) ; ?>
                 <?php echo $this->create_field( '1st value', 'mc-value-1st', '(e.g -)' ) ; ?>
                 <?php echo $this->create_field( '2nd value', 'mc-value-2nd', '(e.g o)' ) ; ?>
                 <?php echo $this->create_field( '3rd value', 'mc-value-3rd', '(e.g x)' ) ; ?>

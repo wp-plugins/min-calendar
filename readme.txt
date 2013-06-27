@@ -11,6 +11,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 create shortcode for minimal calendar
 
+
 == Frequently Asked Questions ==
 
 == Installation ==
@@ -21,6 +22,10 @@ create shortcode for minimal calendar
 == Screenshots ==
 
 == Changelog ==
+
+= 1.0.1 =
+
+* Add setting of sunday and saturday heading color to Appearance
 
 = 1.0.0 =
 
