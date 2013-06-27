@@ -11,6 +11,8 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 create shortcode for minimal calendar
 
+管理画面でシンプルなカレンダー用ショートコードを作成します。
+作成したショートコードを投稿の入力エディタに挿入してカレンダーを表示します。
 
 == Frequently Asked Questions ==
 
@@ -35,7 +37,9 @@ create shortcode for minimal calendar
 
 == Arbitrary section ==
 
+
 管理画面でシンプルなカレンダー用ショートコードを作成します。
+作成したショートコードを投稿の入力エディタに挿入してカレンダーを表示します。
 
 
 This plug-in was created in response to the inspiration to Contact Form 7.
