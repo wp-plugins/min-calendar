@@ -23,15 +23,17 @@ create shortcode for minimal calendar
 
 == Screenshots ==
 
+1. setting of appearance
+2. create calendar shortcode
+3. insert shortcode to post
+4. display example
+
 == Changelog ==
 
 = 1.1.0 =
 
-Add screenshot
-
-= 1.1.0 =
-
 * Add setting of sunday and saturday heading color to Appearance
+* Add screenshot to readme.txt
 
 = 1.0.2 =
 
