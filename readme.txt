@@ -3,7 +3,7 @@ Contributors: s-hiroshi
 Tags: editor
 Requires at least: 3.5.1
 Tested up to: 3.5.1
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -23,11 +23,16 @@ create shortcode for minimal calendar
 
 == Screenshots ==
 
+1. setting of appearance
+2. create calendar shortcode
+3. insert shortcode to post
+4. display example
+
 == Changelog ==
 
-= 1.1.0 =
+= 1.1.1 =
 
-Add screenshot
+* Add screenshot to readme.txt
 
 = 1.1.0 =
 
