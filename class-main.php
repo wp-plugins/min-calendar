@@ -22,18 +22,26 @@ class MC_Main
         require_once MC_PLUGIN_DIR . '/includes/class-post-factory.php';
         require_once MC_PLUGIN_DIR . '/includes/class-post-wrapper.php';
         require_once MC_PLUGIN_DIR . '/includes/class-utilities.php';
+        // get_currentuserinfoはpluggable.phpで定義。自動では読み込まれない。
+        require_once ABSPATH . WPINC . '/pluggable.php';
 
-        new MC_Capabilities();
+        // 管理ユーザーのみ実行
+        global $user_level;
+        get_currentuserinfo();
 
-        if ( is_admin() ) {
+        if ( 10 === (int) $user_level ) {
+            new MC_Capabilities();
+        }
+
+        if ( is_admin() && 10 === (int) $user_level ) {
             new MC_Admin_Controller();
+            add_action( 'admin_init', array( $this, 'upgrade' ) );
+            add_action( 'init', array( $this, 'init' ) );
+            add_action( 'activate_' . MC_PLUGIN_BASENAME, array( &$this, 'activate' ) );
         } else {
             new MC_Controller();
         }
 
-        add_action( 'admin_init', array( $this, 'upgrade' ) );
-        add_action( 'init', array( $this, 'init' ) );
-        add_action( 'activate_' . MC_PLUGIN_BASENAME, array( &$this, 'activate' ) );
     }
 
 
