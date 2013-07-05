@@ -27,7 +27,7 @@ Version: 1.1.0
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-define( 'MC_VERSION', '1.1.0' );
+define( 'MC_VERSION', '1.1.1' );
 define( 'MC_REQUIRED_WP_VERSION', '3.5.1' );
 
 if ( ! defined( 'MC_PLUGIN_BASENAME' ) ) {
@@ -58,7 +58,6 @@ if ( ! defined( 'MC_ADMIN_READ_WRITE_CAPABILITY' ) ) {
 if ( ! defined( 'MC_VERIFY_NONCE' ) ) {
     define( 'MC_VERIFY_NONCE', true );
 }
-
 
 require_once MC_PLUGIN_DIR  . '/class-main.php';
 new MC_Main();
