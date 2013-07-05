@@ -7,7 +7,7 @@ Text Domain: min-calendar
 Domain Path: /languages/
 Author: Hiroshi Sawai
 Author URI: http://www.min-ker.com
-Version: 1.1.0
+Version: 1.1.1
 */
 
 /*  Copyright 2013  Hiroshi Sawai (email : info@info-town.jp)
