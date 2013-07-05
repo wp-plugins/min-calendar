@@ -3,7 +3,7 @@ Contributors: s-hiroshi
 Tags: editor
 Requires at least: 3.5.1
 Tested up to: 3.5.1
-Stable tag: 1.1.5
+Stable tag: 1.1.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -29,6 +29,10 @@ create shortcode for minimal calendar
 4. display example
 
 == Changelog ==
+
+= 1.1.1 =
+
+* Improve action for user level.  only admin user can use calendar.
 
 = 1.1.0 =
 
