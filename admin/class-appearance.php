@@ -11,8 +11,7 @@
 class MC_Appearance
 {
     /**
-     *
-     * @var array $options wp_optionsテーブルへmincalendar-optionsをキーとして登録する
+     * @var array $options mincalendar-optionsをキーとしてwp_optionsへ設定する配列
      */
     private $options = array();
     /**
@@ -26,12 +25,13 @@ class MC_Appearance
 
 
     /**
-     * $options連想配列のアップデート
+     * options配列アップデート
      *
-     * wp_optionsテーブルのmincalendar-optionキーの値を更新
+     * wp_optionsのmincalendar-optionにoptions配列をjson形式に変換して値を設定
      *
-     * @param $key
-     * @param string $referer
+     * @param string $key mincalendar-option
+     * @param string $referer update-appearance
+     * @return bool
      */
     private function update( $key = 'mincalendar-options', $referer = 'update-appearance' )
     {
@@ -44,10 +44,10 @@ class MC_Appearance
 
 
     /**
-     * $options連想配列にkey/value pairを追加
+     * options連想配列にkey/value pairを追加
      *
-     * @param $key   連想配列のキー
-     * @param $value 連想配列の値
+     * @param $key   optionsのキー
+     * @param $value 設定値
      */
     private function add_options( $key, $value )
     {
@@ -63,10 +63,11 @@ class MC_Appearance
 
 
     /**
-     * フォーム入力値を検査しadd_option関数へ渡す
+     * フォームの入力値を検査しadd_option関数へ渡す
      *
-     * @param string $key 更新対象のキー
-     * @return mix キーが存在すれば整形された値、キーが無いときはfalse
+     * @param string $key   更新対象のキー
+     * @param string $value 更新する値
+     * @return mix          キーがあれば検査済み値、無いときはfalse
      */
     private function prepare( $key , $value = null )
     {
@@ -84,10 +85,12 @@ class MC_Appearance
 
 
     /**
-     * 幅・高さの入力値を検査・整形
+     * CSS幅・高さの検査・設定
      *
-     * @param string $key 更新対象のキー
-     * @return mix 入力値が正しくない場合はerror配列に追加してfalseを返す
+     * @param string $key       options配列キー
+     * @param string $selector  CSSセレクタ名
+     * @param string $property  CSS設定値
+     * @return bool 入力値が正しければtrue, 正しくない場合はerror配列に追加してfalseを返す
      */
     private function prepare_size( $key, $selector, $property )
     {
@@ -95,25 +98,26 @@ class MC_Appearance
             return false;
         }
 
-        $value = $_POST[ $key];
+        $value = $_POST[ $key ];
 
         if ( true === MC_Validation::is_size( $value ) ) {
             $value = MC_Validation::normalize_size( $value );
             $value = $this->prepare( $key, $value );
             $this->css .=  $selector . ' { ' . $property . ': ' . $value . '; }' . PHP_EOL;
-        } else {
-            $this->errors[ $key ] = __( 'The inputted value is not right.', 'mincalendar' );
+            return true;
         }
 
+        $this->errors[ $key ] = __( 'The inputted value is not right.', 'mincalendar' );
         return false;
     }
 
 
     /**
-     * ボーダーの入力値を検査・整形
+     * CSSボーダーの検査・設定
      *
-     * @param string $key 更新対象キー
-     * @return boolean 入力値が正しくない場合はerror配列に追加してfalseを返す
+     * @param string $key options配列キー
+     * @param string $selector CSSセレクタ
+     * @return boolean 入力値が正しければtrue, 正しくない場合はerror配列に追加してfalseを返す
      */
     private function prepare_border( $key, $selector )
     {
@@ -122,23 +126,26 @@ class MC_Appearance
         }
 
         $value = $_POST[ $key ];
+
         if ( true === MC_Validation::is_color( $value ) ) {
             $value = MC_Validation::normalize_color( $value );
             $value = $this->prepare( $key, $value );
             $this->css .=  $selector . '{ ' . 'border: 1px solid ' . $value . '; }' . PHP_EOL;
-        } else {
-            $this->errors[ $key ] = __( 'The inputted value is not right.', 'mincalendar' );
+            return true;
         }
 
-        return true;
+        $this->errors[ $key ] = __( 'The inputted value is not right.', 'mincalendar' );
+        return false;
     }
 
 
     /**
-     * カラーを設定
+     * CSSカラーの検査・設定
      *
-     * @param string $key 更新対象のキー
-     * @return mix キーが存在すれば整形された値、キーが無いときはfalse
+     * @param string $key      options配列キー
+     * @param string $selector CSSセレクタ名
+     * @param string $property CSS設定値
+     * @return boolean 入力値が正しければtrue, 正しくない場合はerror配列に追加してfalseを返す
      */
     private function prepare_color( $key, $selector, $property )
     {
@@ -151,35 +158,48 @@ class MC_Appearance
             $value = MC_Validation::normalize_color( $value );
             $value = $this->prepare( $key , $value );
             $this->css .=  $selector . '{ ' . $property . ': '. $value . '; }' . PHP_EOL;
-        } else {
-            $this->errors[ $key ] = __( 'The inputted value is not right.', 'mincalendar' );
+            return true;
         }
+        $this->errors[ $key ] = __( 'The inputted value is not right.', 'mincalendar' );
         return false;
     }
 
 
     /**
-     * カラーを設定
+     * 配置を設定
      *
-     * @param string $key 更新対象のキー
-     * @return mix キーが存在すれば整形された値、キーが無いときはfalse
+     * @param string $key      options配列キー
+     * @param string $selector CSSセレクタ名
+     * @param string $property CSS設定値
+     * @return boolean 入力値が正しければtrue, 正しくない場合はerror配列に追加してfalseを返す
      */
     private function prepare_align( $key, $selector, $property )
     {
         if ( false === isset( $_POST[ $key ] ) || '' === $_POST[ $key ] ) {
             return false;
         }
+
         $value = $_POST[ $key ];
+
         if ( true === MC_Validation::is_align( $value ) ) {
             $value = $this->prepare( $key , $value );
             $this->css .=  $selector . '{ ' . $property . ': '. $value . '; }' . PHP_EOL;
-        } else {
-            $this->errors[ $key ] = __( 'The inputted value is not right.', 'mincalendar' );
+            return true;
         }
+
+        $this->errors[ $key ] = __( 'The inputted value is not right.', 'mincalendar' );
         return false;
     }
 
 
+    /**
+     * 入力用コントロール作成
+     *
+     * @param string $name    表示名
+     * @param string $key     name属性値
+     * @param string $example 入力例
+     * @return string 作成コントロールのマークアップ
+     */
     private function create_field( $name, $key, $example = '' )
     {
         $value   = esc_attr( isset( $this->options[ $key ] ) ? $this->options[ $key ] : '' );
@@ -206,6 +226,7 @@ class MC_Appearance
 
         if ( ! current_user_can( 'edit' ) ) {
             wp_die( __( 'You do not have sufficient permissions to access this page' ) );
+            return false;
         }
 
 
@@ -246,6 +267,9 @@ class MC_Appearance
 
         // text align
         $this->prepare_align( 'mc-text-align', '.mincalendar th, .mincalendar td ', 'text-align' );
+
+        // 日付に関連づける記事のタグ
+        $this->prepare( 'mc-tag' );
 
         // wp_options更新
         $this->update( 'mincalendar-options', 'update-appearance' );
@@ -307,7 +331,8 @@ class MC_Appearance
                 <?php echo $this->create_field( 'background color of 1st value', 'mc-bgcolor-1st', '(e.g #ffffff)' ) ; ?>
                 <?php echo $this->create_field( 'background color of 2nd value', 'mc-bgcolor-2nd', '(e.g #ffffff)' ) ; ?>
                 <?php echo $this->create_field( 'background color of 3rd value', 'mc-bgcolor-3rd', '(e.g #ffffff)' ) ; ?>
-                <?php echo $this->create_field( 'text align', 'mc-text-align', 'left or center or right)' ) ; ?>
+                <?php echo $this->create_field( 'text align', 'mc-text-align', '(left or center or right)' ) ; ?>
+                <?php echo $this->create_field( 'tag attached for search post', 'mc-tag', '(only one tag)' ) ; ?>
             </table>
             <p class="submit"><input type="submit" class="button-primary" value="<?php echo esc_attr( __('Save', 'mincalendar') ); ?>" /></p>
         </form>

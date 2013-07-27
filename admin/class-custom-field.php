@@ -9,6 +9,7 @@ class MC_Custom_Field
 
     /**
      * @param MC_Post_Wrapper $post_wrapper
+     * @param string $html markup
      */
     public static function set_field( $post_wrapper, $html )
     {
@@ -36,10 +37,17 @@ class MC_Custom_Field
             $date[ $i ] = get_post_meta( $post_wrapper->id, $key, true );
         }
 
+        // 記事の既存値取得
+        $related_posts  = array();
+        for ( $i = 1; $i <= $total; $i++ ) {
+            $key = 'post-' . $i;
+            $related_posts[ $i ] = get_post_meta( $post_wrapper->id, $key, true );
+        }
+
+
         /*
          * カスタムフィールド表示
          */
-
         $html .= '<div id="fields">';
         // 年
         $html .= '<div id="fields_year_month">' . PHP_EOL
@@ -73,6 +81,7 @@ class MC_Custom_Field
         $context1 = ( true === isset( $options[ 'mc-value-1st' ] ) ) ? $options[ 'mc-value-1st' ] : '';
         $context2 = ( true === isset( $options[ 'mc-value-2nd' ] ) ) ? $options[ 'mc-value-2nd' ] : 'o';
         $context3 = ( true === isset( $options[ 'mc-value-3rd' ] ) ) ? $options[ 'mc-value-3rd' ] : 'x';
+        $tag      = ( true === isset( $options[ 'mc-tag' ] ) ) ? $options[ 'mc-tag' ] : false;
         for ( $i = 1; $i <= $total; $i++ ) {
             $html .= '<div class="field">';
             if ( 'mc-value-1st' === $date[ $i ] ) {
@@ -105,6 +114,25 @@ class MC_Custom_Field
                     . '<option value="mc-value-3rd">' . esc_html( $context3 ) . '</option>'
                     . '</select><br>';
             }
+
+            // 関連記事
+            if ( false === empty( $tag ) ) {
+                $myposts = get_posts( array(
+                    'numberposts' => 100,
+                    'tag'    => $tag
+                ) );
+                $html .= 'post: <select name="post-' . $i . '">'. PHP_EOL;
+                $html .= '<option value="-">--</option>';
+                foreach( $myposts as $mypost ) {
+                    if ( $related_posts[ $i ] == $mypost->ID ) {
+                        $html .= '<option value="' . $mypost->ID . '" selected="selected">' . $mypost->post_title . '</option>';
+                    } else {
+                        $html .= '<option value="' . $mypost->ID . '">' . $mypost->post_title . '</option>';
+                    }
+                }
+                $html .= '</select>' . PHP_EOL;
+            }
+
             $html .= '</div><!-- field -->';
         }
         $html .= '</div><!-- fields-date -->' . PHP_EOL
@@ -133,7 +161,6 @@ class MC_Custom_Field
         /*
          * 値取得
          */
-        // calendar 1
         $year  = (int) $_POST[ 'year' ];
         $month = (int) $_POST[ 'month' ];
 
@@ -147,6 +174,16 @@ class MC_Custom_Field
                 $date[ $i ] = $_POST[ $key ];
             } else {
                 $date[ $i ] = '';
+            }
+        }
+
+        $related_posts = array();
+        for ( $i = 1; $i <= $total; $i++ ) {
+            $key = 'post-' . $i;
+            if ( isset( $_POST[ $key ] ) ) {
+                $related_posts[ $i ] = $_POST[ $key ];
+            } else {
+                $related_posts[ $i ] = '';
             }
         }
 
@@ -169,6 +206,14 @@ class MC_Custom_Field
                 delete_post_meta( $post_id, $key );
             } else {
                 update_post_meta( $post_id, $key, $date[ $i ]);
+            }
+        }
+        for ( $i = 1; $i <= $total; $i++ ) {
+            $key = 'post-' . $i;
+            if ( '' === $related_posts[ $i ] ) {
+                delete_post_meta( $post_id, $key );
+            } else {
+                update_post_meta( $post_id, $key, $related_posts[ $i ]);
             }
         }
     }

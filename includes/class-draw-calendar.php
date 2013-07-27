@@ -2,14 +2,15 @@
 /**
  * MC_Draw_Calendar
  *
- * カレンダー投稿IDをもとにカレンダーを構築
+ * カレンダーの投稿IDから表示用マークアップ構築
  */
 class MC_Draw_Calendar {
 
     /**
-     * カレンダーの出力用マークアップ
+     * カレンダー表示用マークアップ作成
      *
-     * @param $post_id post ID
+     * @param $post_id カレンダーの投稿ID
+     * @return string  カレンダー表示用マークアップ
      */
     public static function draw( $post_id )
     {
@@ -19,35 +20,41 @@ class MC_Draw_Calendar {
         $days = $res[ 'days' ];
         $day_of_week = $res[ 'day_of_week' ];
         $total = count( $days );
+
         for ( $i = 1; $i <= $total; $i++ ) {
-            $key        = 'date-' . $i;
-            $date[ $i ] = get_post_meta( $post_id, $key, true );
+            $key_date         = 'date-' . $i;
+            $key_post         = 'post-' . $i;
+            $date[ $i ]       = get_post_meta( $post_id, $key_date, true );
+            $relatepost[ $i ] = get_post_meta( $post_id, $key_post, true );
         }
+
         $html = self::make(
             $year,
             $month,
             $date,
-            $day_of_week
+            $day_of_week,
+            $relatepost
         );
         return $html;
     }
 
 
     /**
-     * カレンダーの出力用マークアップ作成
+     * 曜日出力用マークアップ作成
      *
-     * @param $y year yyyy
-     * @param $m month 1～13
-     * @param array $date
+     * @param string $y year yyyy
+     * @param string $m month 1～13
+     * @param string $date 日付情報(配列)
      * @param array $day_of_week 曜日のラベル
+     * @param array $relatepost 曜日に紐づいた投稿
+     * @return string 曜日のマークアップ
      */
-    private static function make( $y, $m, $date, $day_of_week )
+    private static function make( $y, $m, $date, $day_of_week, $relatepost )
     {
         // $y 年 $m 月
         $t     = mktime( 0, 0, 0, $m, 1, $y ); // $y年$m月1日のUNIXTIME
         $w     = date( 'w', $t );              // 1日の曜日（0:日～6:土）
         $n     = date( 't', $t );              // $y年$m月の日数
-        $month = date( 'n', $t );              // $y年$m月のゼロなしの月
         if ( $m < 10 ) {
             $m = '0' . $m;
         }
@@ -82,7 +89,7 @@ HTML;
             }
             // 日付が有効な場合の処理
             if ( ( 0 < $i ) && ( $i <= $n) ) {
-                //$key = 'date-' . $i;
+                // $key = 'date-' . $i;
                 $option = $date[ $i ];
                 $context   = '';
                 $html .= "<td";
@@ -121,7 +128,17 @@ HTML;
                 } else if ( 6 === (int) $youbi ) {
                     $html .= ' class="mincalendar-td-sat"';
                 }
-                $html .= '>' . $i . '<br>' . esc_html( $context ) . '</td>' . PHP_EOL;
+                if ( is_numeric( $relatepost[ $i ] ) ) {
+                    $relate = get_post( $relatepost[ $i ] );
+                    $link   = '<a target="_blank" href="' . get_permalink( $relatepost[ $i ] ) .'">' . $relate->post_title . '</a>';
+                } else {
+                    $link = '';
+                }
+                $html .= '>' . $i . '<br>' . esc_html( $context ) . '<br>';
+                if ( false === empty( $link ) ) {
+                    $html .=  $link;
+                }
+                $html .= '</td>' . PHP_EOL;
             } else {
                 $html .= '<td>&nbsp;</td>' . PHP_EOL;
             }
