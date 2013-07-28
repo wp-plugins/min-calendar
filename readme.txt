@@ -3,7 +3,7 @@ Contributors: s-hiroshi
 Tags: editor
 Requires at least: 3.5.1
 Tested up to: 3.5.1
-Stable tag: 1.3
+Stable tag: 1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -63,9 +63,12 @@ create shortcode for minimal calendar
 Can relate post to day.
 Input target tag(slug) to 'tag attached for search post' in Appearance
 
+バージョン1.2より投稿を日付に紐づける機能を追加しました。
 
-管理画面でシンプルなカレンダー用ショートコードを作成します。
-作成したショートコードを投稿の入力エディタに挿入してカレンダーを表示します。
+1. 外観画面  紐付けする投稿のタグ指定。
+2. カレンダー投稿画面 プルダウンより投稿を選択(1で設定したタグが付いた記事がプルダウンに表示されます)。
+3. 該当する日付に投稿のリンクが設定されます。
+
 
 
 This plug-in was created in response to the inspiration to Contact Form 7.
