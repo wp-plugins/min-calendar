@@ -89,6 +89,7 @@ HTML;
             }
             // 日付が有効な場合の処理
             if ( ( 0 < $i ) && ( $i <= $n) ) {
+                // 日付情報
                 // $key = 'date-' . $i;
                 $option = $date[ $i ];
                 $context   = '';
@@ -96,50 +97,34 @@ HTML;
                 // 曜日の取得
                 $hizuke = mktime( 0, 0, 0, $m, $i, $y ); //$y年$m月$i日のUNIXTIME
                 $youbi  = date( 'w', $hizuke ); // 1日の曜日（0:日～6:土）
+
+                // mc-valueの設定
                 if ( $option === 'mc-value-1st' ) {
-                    $html .= ' class="mc-bgcolor-1st';
-                    if ( 0 === (int) $youbi ) {
-                        $html .= ' mincalendar-td-sun';
-                    } else if ( 6 === (int) $youbi ) {
-                        $html .= ' mincalendar-td-sat';
-                    }
-                    $html .= '"';
+                    $html .= self::set_holiday( '1st', $html, $youbi);
                     $context = ( "\x20" === $options[ 'mc-value-1st' ] ) ? '&nbsp;' : $options[ 'mc-value-1st' ];
                 } else if ( $option === 'mc-value-2nd' ) {
-                    $html .= ' class="mc-bgcolor-2nd';
-                    if ( 0 === (int) $youbi ) {
-                        $html .= ' mincalendar-td-sun';
-                    } else if ( 6 === (int) $youbi ) {
-                        $html .= ' mincalendar-td-sat';
-                    }
-                    $html .= '"';
+                    $html .=  self::set_holiday( '2nd', $html, $youbi);
                     $context = ( "\x20" === $options[ 'mc-value-2nd' ] ) ? '&nbsp;' : $options[ 'mc-value-2nd' ];
                 } else if ( $option === 'mc-value-3rd' ) {
-                    $html .= ' class="mc-bgcolor-3rd"';
-                    if ( 0 === (int) $youbi ) {
-                        $html .= ' mincalendar-td-sun';
-                    } else if ( 6 === (int) $youbi ) {
-                        $html .= ' mincalendar-td-sat';
-                    }
-                    $html .= '"';
+                    $html .= self::set_holiday( '3rd', $html, $youbi);
                     $context = ( "\x20" === $options[ 'mc-value-3rd' ] ) ? '&nbsp;' : $options[ 'mc-value-3rd' ];
-                } else if ( 0 === (int) $youbi ) {
-                    $html .= ' class="mincalendar-td-sun"';
-                } else if ( 6 === (int) $youbi ) {
-                    $html .= ' class="mincalendar-td-sat"';
                 }
+
+                // 紐づけた投稿
                 if ( is_numeric( $relatepost[ $i ] ) ) {
                     $relate = get_post( $relatepost[ $i ] );
                     $link   = '<a target="_blank" href="' . get_permalink( $relatepost[ $i ] ) .'">' . $relate->post_title . '</a>';
                 } else {
                     $link = '';
                 }
+
+                // context
                 $html .= '>' . $i . '<br>' . esc_html( $context ) . '<br>';
                 if ( false === empty( $link ) ) {
                     $html .=  $link;
                 }
                 $html .= '</td>' . PHP_EOL;
-            } else {
+            } else { // 日付が有効な場合の処理
                 $html .= '<td>&nbsp;</td>' . PHP_EOL;
             }
             if ( ( ( $i + $w ) % 7 ) == 0 ) {
@@ -153,6 +138,25 @@ HTML;
 
         // $htmlはエスケープ済み
         return $html;
+    }
+
+
+    /**
+     * @param $index (1st, 2nd, 3rd)
+     * @param $youbi 曜日 0:日, 6:土曜日
+     * @return string マークアップ
+     */
+    private function set_holiday( $index, $youbi )
+    {
+        $html = ' class="mc-bgcolor-' . $index;
+        if ( 0 === (int) $youbi ) {
+            $html .= ' mincalendar-td-sun';
+        } else if ( 6 === (int) $youbi ) {
+            $html .= ' mincalendar-td-sat';
+        }
+        $html .= '"';
+        return $html;
+
     }
 
 }
