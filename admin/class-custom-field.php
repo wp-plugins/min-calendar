@@ -28,21 +28,28 @@ class MC_Custom_Field
         $month = ( false === empty( $month ) ) ? $month : (int) $today[ 'mon' ];
 
         // 曜日既存値取得
-        $days = array_shift( MC_Date::get_days( $year, $month, true ) );
+        $days  = array_shift( MC_Date::get_days( $year, $month, true ) );
         $total = count( $days );
 
         // 日付既存値取得
         $date  = array();
         for ( $i = 1; $i <= $total; $i++ ) {
-            $key = 'date-' . $i;
+            $key        = 'date-' . $i;
             $date[ $i ] = get_post_meta( $post_wrapper->id, $key, true );
         }
 
         // 記事既存値取得
         $related_posts  = array();
         for ( $i = 1; $i <= $total; $i++ ) {
-            $key = 'post-' . $i;
+            $key                 = 'post-' . $i;
             $related_posts[ $i ] = get_post_meta( $post_wrapper->id, $key, true );
+        }
+
+        // テキスト(マークアップやスクリプトは出力の際参照へ変換)
+        $texts = array();
+        for ( $i = 1; $i <= $total; $i++ ) {
+            $key        = 'text-' . $i;
+            $texts[ $i ] = get_post_meta( $post_wrapper->id, $key, true);
         }
 
 
@@ -141,6 +148,11 @@ class MC_Custom_Field
                 $html .= '</div><!-- cell-post -->' . PHP_EOL;
             }
 
+            // テキスト
+            $html .= '<div class="cell cell-text">' . PHP_EOL;
+            $html .= 'text: <input type="text" size="40" name="text-' . $i . '" value="' . esc_html( $texts[ $i ] ) .'">';
+            $html .= '</div><!-- cell-text -->';
+
             $html .= '</div><!-- field -->';
         }
         $html .= '</div><!-- fields-date -->' . PHP_EOL
@@ -169,12 +181,11 @@ class MC_Custom_Field
         /*
          * 値取得
          */
+        // 日付
         $year  = (int) $_POST[ 'year' ];
         $month = (int) $_POST[ 'month' ];
-
         $days = MC_Date::get_days( $year, $month, true );
         $total = count( $days[ 'days' ] );
-
         $date  = array();
         for ( $i = 1; $i <= $total; $i++ ) {
             $key = 'date-' . $i;
@@ -184,7 +195,7 @@ class MC_Custom_Field
                 $date[ $i ] = '';
             }
         }
-
+        // 関連記事
         $related_posts = array();
         for ( $i = 1; $i <= $total; $i++ ) {
             $key = 'post-' . $i;
@@ -192,6 +203,16 @@ class MC_Custom_Field
                 $related_posts[ $i ] = $_POST[ $key ];
             } else {
                 $related_posts[ $i ] = '';
+            }
+        }
+        // テキスト
+        $texts = array();
+        for ( $i = 1; $i <= $total; $i++ ) {
+            $key = 'text-' . $i;
+            if ( isset( $_POST[ $key ] ) ) {
+                $texts[ $i ] = $_POST[ $key ];
+            } else {
+                $texts[ $i ] = '';
             }
         }
 
@@ -224,5 +245,14 @@ class MC_Custom_Field
                 update_post_meta( $post_id, $key, $related_posts[ $i ]);
             }
         }
+        for ( $i = 1; $i <= $total; $i++ ) {
+            $key = 'text-' . $i;
+            if ( '' === $texts[ $i ] ) {
+                delete_post_meta( $post_id, $key );
+            } else {
+                update_post_meta( $post_id, $key, $texts[ $i ]);
+            }
+        }
+
     }
 }

@@ -14,18 +14,20 @@ class MC_Draw_Calendar {
      */
     public static function draw( $post_id )
     {
-        $year   = (int) get_post_meta( $post_id, 'year' , true );
-        $month  = (int) get_post_meta( $post_id, 'month', true );
-        $res   = MC_Date::get_days( $year, $month , false );
-        $days = $res[ 'days' ];
+        $year        = (int) get_post_meta( $post_id, 'year' , true );
+        $month       = (int) get_post_meta( $post_id, 'month', true );
+        $res         = MC_Date::get_days( $year, $month , false );
+        $days        = $res[ 'days' ];
         $day_of_week = $res[ 'day_of_week' ];
         $total = count( $days );
 
         for ( $i = 1; $i <= $total; $i++ ) {
-            $key_date         = 'date-' . $i;
-            $key_post         = 'post-' . $i;
-            $date[ $i ]       = get_post_meta( $post_id, $key_date, true );
-            $relatepost[ $i ] = get_post_meta( $post_id, $key_post, true );
+            $key_date           = 'date-' . $i;
+            $key_post           = 'post-' . $i;
+            $key_text           = 'text-' . $i;
+            $date[ $i ]         = get_post_meta( $post_id, $key_date, true );
+            $relate_posts[ $i ] = get_post_meta( $post_id, $key_post, true );
+            $texts[ $i ]        = get_post_meta( $post_id, $key_text, true );
         }
 
         $html = self::make(
@@ -33,7 +35,8 @@ class MC_Draw_Calendar {
             $month,
             $date,
             $day_of_week,
-            $relatepost
+            $relate_posts,
+            $texts
         );
         return $html;
     }
@@ -44,12 +47,13 @@ class MC_Draw_Calendar {
      *
      * @param string $y year yyyy
      * @param string $m month 1～13
-     * @param string $date 日付情報(配列)
-     * @param array $day_of_week 曜日のラベル
-     * @param array $relatepost 曜日に紐づいた投稿
+     * @param array  $date 日付情報
+     * @param array  $day_of_week 曜日のラベル
+     * @param array  $relate_posts 曜日に紐づいた投稿
+     * @param array  $texts テキスト
      * @return string 曜日のマークアップ
      */
-    private static function make( $y, $m, $date, $day_of_week, $relatepost )
+    private static function make( $y, $m, $date, $day_of_week, $relate_posts, $texts )
     {
         // $y 年 $m 月
         $t     = mktime( 0, 0, 0, $m, 1, $y ); // $y年$m月1日のUNIXTIME
@@ -111,17 +115,27 @@ HTML;
                 }
 
                 // 紐づけた投稿
-                if ( is_numeric( $relatepost[ $i ] ) ) {
-                    $relate = get_post( $relatepost[ $i ] );
-                    $link   = '<a target="_blank" href="' . get_permalink( $relatepost[ $i ] ) .'">' . $relate->post_title . '</a>';
+                if ( is_numeric( $relate_posts[ $i ] ) ) {
+                    $relate = get_post( $relate_posts[ $i ] );
+                    $link   = '<a target="_blank" href="' . get_permalink( $relate_posts[ $i ] ) .'">' . $relate->post_title . '</a>';
                 } else {
                     $link = '';
                 }
 
+                // テキスト
+                if ( '' !== $texts[ $i ] ) {
+                    $text = esc_html( $texts[ $i ] );
+                } else {
+                    $text = '';
+                }
+
                 // context
-                $html .= '>' . $i . '<br>' . esc_html( $context ) . '<br>';
+                $html .= '>' . $i . '<br>' . esc_html( $context ) ;
                 if ( false === empty( $link ) ) {
-                    $html .=  $link;
+                    $html .= '<br>' . $link;
+                }
+                if ( false === empty( $text ) ) {
+                    $html .= '<br>' . $text;
                 }
                 $html .= '</td>' . PHP_EOL;
             } else { // 日付が有効な場合の処理
