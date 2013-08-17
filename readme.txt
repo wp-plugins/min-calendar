@@ -2,8 +2,8 @@
 Contributors: s-hiroshi
 Tags: calendar
 Requires at least: 3.5.1
-Tested up to: 3.5.1
-Stable tag: 1.4
+Tested up to: 3.6
+Stable tag: 1.4.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -29,7 +29,22 @@ create shortcode for minimal calendar
 4. display example
 5. relate post to day
 
+
+<img="screenshot-5.png" alt="relate post to day">
+
+5. relate post to day
+
+
+
 == Changelog ==
+
+= 1.3 =
+
+* Add text field to calendar
+
+= 1.2.1 =
+
+* Improve only style of appearance
 
 = 1.2 =
 
@@ -62,6 +77,8 @@ create shortcode for minimal calendar
 
 Can relate post to day.
 Input target tag(slug) to 'tag attached for search post' in Appearance
+
+バージョン1.3でテキスト表示機能を追加しました。
 
 バージョン1.2より投稿を日付に紐づける機能を追加しました。
 

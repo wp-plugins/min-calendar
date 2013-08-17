@@ -2,12 +2,14 @@
 /**
  * MC_Custom_Field
  *
- * カレンダー投稿カスタムフィールド
+ * カレンダー投稿のカスタムフィールド
  */
 class MC_Custom_Field
 {
 
     /**
+     * 日付入力などフィールド処理
+     *
      * @param MC_Post_Wrapper $post_wrapper
      * @param string $html markup
      */
@@ -16,7 +18,7 @@ class MC_Custom_Field
         /*
          *  カスタムフィールドの値取得
          */
-        // 年, 月既存値を取得
+        // 年, 月既存値取得
         $year  = (int) get_post_meta( $post_wrapper->id, 'year', true );
         $month = (int) get_post_meta( $post_wrapper->id, 'month', true );
 
@@ -25,23 +27,29 @@ class MC_Custom_Field
         $year  = ( false === empty( $year ) ) ? $year : (int) $today[ 'year' ];
         $month = ( false === empty( $month ) ) ? $month : (int) $today[ 'mon' ];
 
-        // 曜日
-        $days = array_shift( MC_Date::get_days( $year, $month, true ) );
+        // 曜日既存値取得
+        $days  = array_shift( MC_Date::get_days( $year, $month, true ) );
         $total = count( $days );
 
-
-        // 日付の既存値取得
+        // 日付既存値取得
         $date  = array();
         for ( $i = 1; $i <= $total; $i++ ) {
-            $key = 'date-' . $i;
+            $key        = 'date-' . $i;
             $date[ $i ] = get_post_meta( $post_wrapper->id, $key, true );
         }
 
-        // 記事の既存値取得
+        // 記事既存値取得
         $related_posts  = array();
         for ( $i = 1; $i <= $total; $i++ ) {
-            $key = 'post-' . $i;
+            $key                 = 'post-' . $i;
             $related_posts[ $i ] = get_post_meta( $post_wrapper->id, $key, true );
+        }
+
+        // テキスト(マークアップやスクリプトは出力の際参照へ変換)
+        $texts = array();
+        for ( $i = 1; $i <= $total; $i++ ) {
+            $key        = 'text-' . $i;
+            $texts[ $i ] = get_post_meta( $post_wrapper->id, $key, true);
         }
 
 
@@ -73,7 +81,10 @@ class MC_Custom_Field
         }
         $html .= '</select></div><!-- mincalendar_fileds_yearandmonth -->' . PHP_EOL;
 
-        // 日
+
+        /*
+         * 各日付処理
+         */
         $html .= '<div id="fields_date">';
 
         // wp_option取得
@@ -83,28 +94,29 @@ class MC_Custom_Field
         $context3 = ( true === isset( $options[ 'mc-value-3rd' ] ) ) ? $options[ 'mc-value-3rd' ] : 'x';
         $tag      = ( true === isset( $options[ 'mc-tag' ] ) ) ? $options[ 'mc-tag' ] : false;
         for ( $i = 1; $i <= $total; $i++ ) {
-            $html .= '<div class="field">';
+            $html .= '<div class="field">' . PHP_EOL;
+            $html .= '<div class="cell cell-date">';
             if ( 'mc-value-1st' === $date[ $i ] ) {
                 $html .=  '<span class="date">' . $i . '</span>' . ' ' . '<span class="days">' . $days[ $i ] . '</span> '
                     . ' : <select name="date-' . $i . '">'
                     . '<option value="mc-value-1st" selected="selected">' . esc_html( $context1 ) . '</option>'
                     . '<option value="mc-value-2nd">' . esc_html( $context2 ) . '</option>'
                     . '<option value="mc-value-3rd">' . esc_html( $context3 ) . '</option>'
-                    . '</select><br>';
+                    . '</select>';
             } else if ( 'mc-value-2nd' === $date[ $i ] ) {
                 $html .=  '<span class="date">' . $i . '</span>' . ' ' . '<span class="days">' . $days[ $i ] . '</span> '
                     . ' : <select name="date-' . $i . '">'
                     . '<option value="mc-value-1st">' . esc_html( $context1 ) . '</option>'
                     . '<option value="mc-value-2nd" selected="selected">' . esc_html( $context2 ) . '</option>'
                     . '<option value="mc-value-3rd">' . esc_html( $context3 ) . '</option>'
-                    . '</select><br>';
+                    . '</select>';
             } else if ( 'mc-value-3rd' === $date[ $i ] ) {
                 $html .=  '<span class="date">' . $i . '</span>' . ' ' . '<span class="days">' . $days[ $i ] . '</span> '
                     . ' : <select name="date-' . $i . '">'
                     . '<option value="mc-value-1st">' . esc_html( $context1 ) . '</option>'
                     . '<option value="mc-value-2nd">' . esc_html( $context2 ) . '</option>'
                     . '<option value="mc-value-3rd" selected="selected">' . esc_html( $context3 ) . '</option>'
-                    . '</select><br>';
+                    . '</select>';
             }
             else {
                 $html .=  '<span class="date">' . $i . '</span>' . ' ' . '<span class="days">' . $days[ $i ] . '</span> '
@@ -112,8 +124,9 @@ class MC_Custom_Field
                     . '<option value="mc-value-1st" selected="selected">' . esc_html( $context1 ) . '</option>'
                     . '<option value="mc-value-2nd">' . esc_html( $context2 ) . '</option>'
                     . '<option value="mc-value-3rd">' . esc_html( $context3 ) . '</option>'
-                    . '</select><br>';
+                    . '</select>';
             }
+            $html .= '</div><!-- cell-date -->';
 
             // 関連記事
             if ( false === empty( $tag ) ) {
@@ -121,6 +134,7 @@ class MC_Custom_Field
                     'numberposts' => 100,
                     'tag'    => $tag
                 ) );
+                $html .= '<div class="cell cell-post">' . PHP_EOL;
                 $html .= 'post: <select name="post-' . $i . '">'. PHP_EOL;
                 $html .= '<option value="-">--</option>';
                 foreach( $myposts as $mypost ) {
@@ -131,7 +145,13 @@ class MC_Custom_Field
                     }
                 }
                 $html .= '</select>' . PHP_EOL;
+                $html .= '</div><!-- cell-post -->' . PHP_EOL;
             }
+
+            // テキスト
+            $html .= '<div class="cell cell-text">' . PHP_EOL;
+            $html .= 'text: <input type="text" size="40" name="text-' . $i . '" value="' . esc_html( $texts[ $i ] ) .'">';
+            $html .= '</div><!-- cell-text -->';
 
             $html .= '</div><!-- field -->';
         }
@@ -161,12 +181,11 @@ class MC_Custom_Field
         /*
          * 値取得
          */
+        // 日付
         $year  = (int) $_POST[ 'year' ];
         $month = (int) $_POST[ 'month' ];
-
         $days = MC_Date::get_days( $year, $month, true );
         $total = count( $days[ 'days' ] );
-
         $date  = array();
         for ( $i = 1; $i <= $total; $i++ ) {
             $key = 'date-' . $i;
@@ -176,7 +195,7 @@ class MC_Custom_Field
                 $date[ $i ] = '';
             }
         }
-
+        // 関連記事
         $related_posts = array();
         for ( $i = 1; $i <= $total; $i++ ) {
             $key = 'post-' . $i;
@@ -184,6 +203,16 @@ class MC_Custom_Field
                 $related_posts[ $i ] = $_POST[ $key ];
             } else {
                 $related_posts[ $i ] = '';
+            }
+        }
+        // テキスト
+        $texts = array();
+        for ( $i = 1; $i <= $total; $i++ ) {
+            $key = 'text-' . $i;
+            if ( isset( $_POST[ $key ] ) ) {
+                $texts[ $i ] = $_POST[ $key ];
+            } else {
+                $texts[ $i ] = '';
             }
         }
 
@@ -216,5 +245,14 @@ class MC_Custom_Field
                 update_post_meta( $post_id, $key, $related_posts[ $i ]);
             }
         }
+        for ( $i = 1; $i <= $total; $i++ ) {
+            $key = 'text-' . $i;
+            if ( '' === $texts[ $i ] ) {
+                delete_post_meta( $post_id, $key );
+            } else {
+                update_post_meta( $post_id, $key, $texts[ $i ]);
+            }
+        }
+
     }
 }
