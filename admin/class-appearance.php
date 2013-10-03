@@ -71,7 +71,7 @@ class MC_Appearance
      */
     private function prepare( $key , $value = null )
     {
-        if ( false === isset( $_POST[ $key ] ) || '' === $_POST[ $key ] ) {
+        if ( false === isset( $_POST[ $key ] ) ) {
             return false;
         }
         if ( true === is_null( $value ) ) {

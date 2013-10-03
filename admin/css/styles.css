@@ -1,46 +1,18 @@
-div.wrap div.mincalendarcom-links {
-    text-align: right;
-    font-size: .9em;
-    margin: -2em 1em 1em 0;
+.field {
+    padding: 12px 0;
+    border-bottom: 1px solid #ccc;
+    clear: both;
+    overflow: hidden;
 }
-
-div.wrap div.mincalendarcom-links a {
-    text-decoration: none;
-    font-weight: bold;
+.cell {
+    display: inline-block;
+    float: left;
+    margin-right: 20px;
 }
-
-div.wrap div.donation {
-    border-width: 1px;
-    border-style: solid;
-    padding: 0 0.6em;
-    margin: 5px 0 15px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
-    background-color: #ffffe0;
-    border-color: #e6db55;
-}
-
-div.wrap div.donation p {
-    margin: .7em 0;
-    line-height: 1;
-    padding: 2px;
-    font-size: 107%;
-}
-
-div.wrap div.donation p a {
-    color: #3f3f3f;
-    text-decoration: none;
-}
-
-div.wrap div.donation p a.button {
-    margin-left: 1em;
-    font-weight: bold;
-}
-
 #titlediv {
     margin-bottom: 20px;
     position: relative;
-    border: 1px solid #c7c7c7;
+    border: 1px solid #ccc;
     padding: 6px;
 }
 
