@@ -103,13 +103,13 @@ HTML;
                 $youbi  = date( 'w', $hizuke ); // 1日の曜日（0:日～6:土）
 
                 // mc-valueの設定
-                if ( $option === 'mc-value-1st' ) {
+                if ( isset( $options[ 'mc-value-1st' ] ) && $option === 'mc-value-1st' ) {
                     $html .= self::set_holiday( '1st', $html, $youbi);
                     $context = ( "\x20" === $options[ 'mc-value-1st' ] ) ? '&nbsp;' : $options[ 'mc-value-1st' ];
-                } else if ( $option === 'mc-value-2nd' ) {
+                } else if ( isset( $options[ 'mc-value-2nd' ] ) && $option === 'mc-value-2nd' ) {
                     $html .=  self::set_holiday( '2nd', $html, $youbi);
                     $context = ( "\x20" === $options[ 'mc-value-2nd' ] ) ? '&nbsp;' : $options[ 'mc-value-2nd' ];
-                } else if ( $option === 'mc-value-3rd' ) {
+                } else if ( isset( $options[ 'mc-value-3rd' ] ) && $option === 'mc-value-3rd' ) {
                     $html .= self::set_holiday( '3rd', $html, $youbi);
                     $context = ( "\x20" === $options[ 'mc-value-3rd' ] ) ? '&nbsp;' : $options[ 'mc-value-3rd' ];
                 }
