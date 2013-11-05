@@ -103,14 +103,29 @@ HTML;
                 $youbi  = date( 'w', $hizuke ); // 1日の曜日（0:日～6:土）
 
                 // mc-valueの設定
+<<<<<<< .mine
                 if ( isset( $options[ 'mc-value-1st' ] ) && $option === 'mc-value-1st' ) {
                     $html .= self::set_holiday( '1st', $youbi);
+=======
+                if ( isset( $options[ 'mc-value-1st' ] ) && $option === 'mc-value-1st' ) {
+                    $html .= self::set_holiday( '1st', $html, $youbi);
+>>>>>>> .r798993
                     $context = ( "\x20" === $options[ 'mc-value-1st' ] ) ? '&nbsp;' : $options[ 'mc-value-1st' ];
+<<<<<<< .mine
                 } else if ( isset( $options[ 'mc-value-2nd' ] ) && $option === 'mc-value-2nd' ) {
                     $html .=  self::set_holiday( '2nd', $youbi);
+=======
+                } else if ( isset( $options[ 'mc-value-2nd' ] ) && $option === 'mc-value-2nd' ) {
+                    $html .=  self::set_holiday( '2nd', $html, $youbi);
+>>>>>>> .r798993
                     $context = ( "\x20" === $options[ 'mc-value-2nd' ] ) ? '&nbsp;' : $options[ 'mc-value-2nd' ];
+<<<<<<< .mine
                 } else if ( isset( $options[ 'mc-value-3rd' ] ) && $option === 'mc-value-3rd' ) {
                     $html .= self::set_holiday( '3rd', $youbi);
+=======
+                } else if ( isset( $options[ 'mc-value-3rd' ] ) && $option === 'mc-value-3rd' ) {
+                    $html .= self::set_holiday( '3rd', $html, $youbi);
+>>>>>>> .r798993
                     $context = ( "\x20" === $options[ 'mc-value-3rd' ] ) ? '&nbsp;' : $options[ 'mc-value-3rd' ];
                 }
 
