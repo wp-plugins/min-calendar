@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Min Calendar
-Plugin URI: http://www.min-ker.com
+Plugin URI: http://wordpress.org/plugins/min-calendar/
 Description: Add minimum calendar
 Text Domain: min-calendar
 Domain Path: /languages/
