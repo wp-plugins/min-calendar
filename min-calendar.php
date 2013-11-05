@@ -1,13 +1,13 @@
 <?php
 /*
 Plugin Name: Min Calendar
-Plugin URI: http://www.min-ker.com
+Plugin URI: http://wordpress.org/plugins/min-calendar/
 Description: Add minimum calendar
 Text Domain: min-calendar
 Domain Path: /languages/
 Author: Hiroshi Sawai
 Author URI: http://www.min-ker.com
-Version: 1.3.1
+Version: 1.4.3
 */
 
 /*  Copyright 2013  Hiroshi Sawai (email : info@info-town.jp)
@@ -27,7 +27,7 @@ Version: 1.3.1
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-define( 'MC_VERSION', '1.3.1' );
+define( 'MC_VERSION', '1.4.3' );
 define( 'MC_REQUIRED_WP_VERSION', '3.5.1' );
 
 if ( ! defined( 'MC_PLUGIN_BASENAME' ) ) {
