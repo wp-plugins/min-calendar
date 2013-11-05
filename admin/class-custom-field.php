@@ -24,8 +24,8 @@ class MC_Custom_Field
 
         // 既存値がないときは今日の日付を設定
         $today = getdate();
-        $year  = ( false === empty( $year ) ) ? $year : (int) $today[ 'year' ];
-        $month = ( false === empty( $month ) ) ? $month : (int) $today[ 'mon' ];
+        $year  = ( ! empty( $year ) ) ? $year : (int) $today[ 'year' ];
+        $month = ( ! empty( $month ) ) ? $month : (int) $today[ 'mon' ];
 
         // 曜日既存値取得
         $days  = array_shift( MC_Date::get_days( $year, $month, true ) );
@@ -92,7 +92,7 @@ class MC_Custom_Field
         $context1 = ( true === isset( $options[ 'mc-value-1st' ] ) ) ? $options[ 'mc-value-1st' ] : '';
         $context2 = ( true === isset( $options[ 'mc-value-2nd' ] ) ) ? $options[ 'mc-value-2nd' ] : 'o';
         $context3 = ( true === isset( $options[ 'mc-value-3rd' ] ) ) ? $options[ 'mc-value-3rd' ] : 'x';
-        $tag      = ( true === isset( $options[ 'mc-tag' ] ) ) ? $options[ 'mc-tag' ] : false;
+        $tags     = ( true === isset( $options[ 'mc-tag' ] ) ) ? $options[ 'mc-tag' ] : false;
         for ( $i = 1; $i <= $total; $i++ ) {
             $html .= '<div class="field">' . PHP_EOL;
             $html .= '<div class="cell cell-date">';
@@ -129,10 +129,17 @@ class MC_Custom_Field
             $html .= '</div><!-- cell-date -->';
 
             // 関連記事
-            if ( false === empty( $tag ) ) {
+            if ( ! empty( $tags ) ) {
+                    $tags_name = explode( ',', $tags );
+                $tags_id   = array();
+                foreach ( $tags_name as $key => $value ) {
+                    $tag_prop  = get_term_by( 'name', trim( $value ), 'post_tag');
+                    $tags_id[ $key ]  = $tag_prop->term_id;
+                }
+                
                 $myposts = get_posts( array(
                     'numberposts' => 100,
-                    'tag'    => $tag
+                    'tag__in'    => $tags_id
                 ) );
                 $html .= '<div class="cell cell-post">' . PHP_EOL;
                 $html .= 'post: <select name="post-' . $i . '">'. PHP_EOL;
@@ -150,7 +157,7 @@ class MC_Custom_Field
 
             // テキスト
             $html .= '<div class="cell cell-text">' . PHP_EOL;
-            $html .= 'text: <input type="text" size="40" name="text-' . $i . '" value="' . esc_html( $texts[ $i ] ) .'">';
+            $html .= 'text: <textarea type="text" rows="8" cols="30" name="text-' . $i . '">' . esc_html( $texts[ $i ] ) . '</textarea>';
             $html .= '</div><!-- cell-text -->';
 
             $html .= '</div><!-- field -->';

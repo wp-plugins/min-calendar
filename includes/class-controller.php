@@ -11,6 +11,7 @@ class MC_Controller {
     {
         add_action( 'plugins_loaded', array( &$this, 'add_shortcodes' ), 1 );
         add_action( 'wp_enqueue_scripts', array( &$this, 'enqueue_styles' ) );
+        add_action( 'wp_enqueue_scripts', array( &$this, 'enqueue_styles_base' ) );
     }
 
 
@@ -74,6 +75,21 @@ class MC_Controller {
         );
 
         do_action( 'enqueue_styles' );
+    }
+    /**
+     * Add style to wordpress style enqueue
+     */
+    function enqueue_styles_base()
+    {
+        wp_enqueue_style(
+            'mincalendar-base',
+            MC_Utilities::mc_plugin_url( 'includes/css/mincalendar-base.css' ),
+            array(),
+            MC_VERSION,
+            'all'
+        );
+
+        do_action( 'enqueue_styles_base' );
     }
 
 }
