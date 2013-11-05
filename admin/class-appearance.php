@@ -322,17 +322,17 @@ class MC_Appearance
             <table class="form-table">
                 <?php echo $this->create_field( 'sunday', 'mc-sun', '(sunday label. e.g Sun)' ) ; ?>
                 <?php echo $this->create_field( 'monday', 'mc-mon', '(monday label. e.g Mon)' ) ; ?>
-                <?php echo $this->create_field( 'tuesday', 'mc-tue', '(tuesday label. e.g Tue') ; ?>
+                <?php echo $this->create_field( 'tuesday', 'mc-tue', '(tuesday label. e.g Tue)') ; ?>
                 <?php echo $this->create_field( 'wednesday', 'mc-wed', '(wednesday label. e.g Wed)' ) ; ?>
-                <?php echo $this->create_field( 'thursday', 'mc-thu', '(thursday label. e.g Tue' ) ; ?>
+                <?php echo $this->create_field( 'thursday', 'mc-thu', '(thursday label. e.g Tue)' ) ; ?>
                 <?php echo $this->create_field( 'friday', 'mc-fri', '(friday label. e.g Fri)' ) ; ?>
                 <?php echo $this->create_field( 'saturday', 'mc-sat', '(saturday label. Sat)' ) ; ?>
                 <?php echo $this->create_field( 'sunday heading text color', 'mincalendar-th-sun', '(e.g #000000)' ) ; ?>
                 <?php echo $this->create_field( 'satday heading text color', 'mincalendar-th-sat', '(e.g #000000)' ) ; ?>
                 <?php echo $this->create_field( 'sunday heading background color', 'mincalendar-th-sun-bg', '(e.g #000000)' ) ; ?>
-                <?php echo $this->create_field( 'sunday heading background color', 'mincalendar-th-sat-bg', '(e.g #000000)' ) ; ?>
+                <?php echo $this->create_field( 'satday heading background color', 'mincalendar-th-sat-bg', '(e.g #000000)' ) ; ?>
                 <?php echo $this->create_field( 'sunday background color', 'mincalendar-td-sun-bg', '(e.g #000000)' ) ; ?>
-                <?php echo $this->create_field( 'sunday background color', 'mincalendar-td-sat-bg', '(e.g #000000)' ) ; ?>
+                <?php echo $this->create_field( 'satday background color', 'mincalendar-td-sat-bg', '(e.g #000000)' ) ; ?>
                 <?php echo $this->create_field( 'th text align', 'mc-th-text-align', '(left or center or right)' ) ; ?>
                 <?php echo $this->create_field( 'td text align', 'mc-text-align', '(left or center or right)' ) ; ?>
                 <?php echo $this->create_field( 'table width', 'mc-table-width', '(table width. px or %. e.g 500px, 100%)' ) ; ?>
