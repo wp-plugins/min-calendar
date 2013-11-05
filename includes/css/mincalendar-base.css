@@ -1,1 +1,20 @@
-.mincalendar {}
+/* -------------------------------------------------------------------
+Min Calendar
+------------------------------------------------------------------- */
+.mincalendar {
+  table-layout: fixed;
+}
+.mincalendar td {
+  vertical-align: top;
+  line-height: 1.25;
+}
+.td-inner {
+  margin: 3px 5px;
+  padding: 0;
+}
+.td-inner div {
+  margin-bottom: 0.5em;
+}
+.mincalendar .mc-date {
+  text-align: left;
+}

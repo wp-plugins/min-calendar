@@ -2,8 +2,8 @@
 Contributors: s-hiroshi
 Tags: calendar
 Requires at least: 3.5.1
-Tested up to: 3.6
-Stable tag: 1.4.8
+Tested up to: 3.7.1
+Stable tag: 1.5.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -38,6 +38,15 @@ create shortcode for minimal calendar
 
 == Changelog ==
 
+= 1.4.1 =
+
+* Improve Appearance
+* Change text field to textarea in calendar post
+
+= 1.4.0 =
+
+* Improve Appearance
+* Change text field to textarea in calendar post
 
 = 1.3.1 =
 
