@@ -246,11 +246,20 @@ class MC_Appearance
         $this->prepare( 'mc-value-2nd' );
         $this->prepare( 'mc-value-3rd' );
 
-        // 日曜・土曜の見出しカラー
+        // 日曜・土曜見出し色
         $this->prepare_color( 'mincalendar-th-sun', '.mincalendar-th-sun', 'color');
         $this->prepare_color( 'mincalendar-th-sat', '.mincalendar-th-sat', 'color');
+        
+        // 日曜・土曜背景色
+        $this->prepare_color( 'mincalendar-th-sun-bg', '.mincalendar-th-sun', 'background');
+        $this->prepare_color( 'mincalendar-th-sat-bg', '.mincalendar-th-sat', 'background');
+        $this->prepare_color( 'mincalendar-td-sun-bg', '.mincalendar-td-sun', 'background');
+        $this->prepare_color( 'mincalendar-td-sat-bg', '.mincalendar-td-sat', 'background');
 
-        // 幅・高さ
+        // テーブル幅
+        $this->prepare_size( 'mc-table-width', '.mincalendar', 'width' );
+        
+        // セル幅・高さ
         $this->prepare_size( 'mc-width-th', '.mincalendar th', 'width' );
         $this->prepare_size( 'mc-height-th', '.mincalendar th', 'height' );
         $this->prepare_size( 'mc-width-td', '.mincalendar td', 'width' );
@@ -266,7 +275,8 @@ class MC_Appearance
         $this->prepare_color( 'mc-bgcolor-3rd', '.mc-bgcolor-3rd', 'background' );
 
         // text align
-        $this->prepare_align( 'mc-text-align', '.mincalendar th, .mincalendar td ', 'text-align' );
+        $this->prepare_align( 'mc-th-text-align', '.mincalendar th ', 'text-align' );
+        $this->prepare_align( 'mc-text-align', '.mincalendar td ', 'text-align' );
 
         // 日付に関連づける記事のタグ
         $this->prepare( 'mc-tag' );
@@ -310,29 +320,35 @@ class MC_Appearance
         <form method="post" action="">
             <?php wp_nonce_field( 'update-appearance' ); ?>
             <table class="form-table">
-                <?php echo $this->create_field( 'sunday', 'mc-sun' ) ; ?>
-                <?php echo $this->create_field( 'monday', 'mc-mon' ) ; ?>
-                <?php echo $this->create_field( 'tuesday', 'mc-tue' ) ; ?>
-                <?php echo $this->create_field( 'wednesday', 'mc-wed' ) ; ?>
-                <?php echo $this->create_field( 'thursday', 'mc-thu' ) ; ?>
-                <?php echo $this->create_field( 'friday', 'mc-fri' ) ; ?>
-                <?php echo $this->create_field( 'saturday', 'mc-sat' ) ; ?>
-                <?php echo $this->create_field( 'sunday heading text color', 'mincalendar-th-sun', '(e.g #ff0000)' ) ; ?>
-                <?php echo $this->create_field( 'satday heading text color', 'mincalendar-th-sat', '(e.g #0000ff)' ) ; ?>
-                <?php echo $this->create_field( '1st value', 'mc-value-1st', '(e.g -)' ) ; ?>
-                <?php echo $this->create_field( '2nd value', 'mc-value-2nd', '(e.g o)' ) ; ?>
-                <?php echo $this->create_field( '3rd value', 'mc-value-3rd', '(e.g x)' ) ; ?>
+                <?php echo $this->create_field( 'sunday', 'mc-sun', '(sunday label. e.g Sun)' ) ; ?>
+                <?php echo $this->create_field( 'monday', 'mc-mon', '(monday label. e.g Mon)' ) ; ?>
+                <?php echo $this->create_field( 'tuesday', 'mc-tue', '(tuesday label. e.g Tue') ; ?>
+                <?php echo $this->create_field( 'wednesday', 'mc-wed', '(wednesday label. e.g Wed)' ) ; ?>
+                <?php echo $this->create_field( 'thursday', 'mc-thu', '(thursday label. e.g Tue' ) ; ?>
+                <?php echo $this->create_field( 'friday', 'mc-fri', '(friday label. e.g Fri)' ) ; ?>
+                <?php echo $this->create_field( 'saturday', 'mc-sat', '(saturday label. Sat)' ) ; ?>
+                <?php echo $this->create_field( 'sunday heading text color', 'mincalendar-th-sun', '(e.g #000000)' ) ; ?>
+                <?php echo $this->create_field( 'satday heading text color', 'mincalendar-th-sat', '(e.g #000000)' ) ; ?>
+                <?php echo $this->create_field( 'sunday heading background color', 'mincalendar-th-sun-bg', '(e.g #000000)' ) ; ?>
+                <?php echo $this->create_field( 'sunday heading background color', 'mincalendar-th-sat-bg', '(e.g #000000)' ) ; ?>
+                <?php echo $this->create_field( 'sunday background color', 'mincalendar-td-sun-bg', '(e.g #000000)' ) ; ?>
+                <?php echo $this->create_field( 'sunday background color', 'mincalendar-td-sat-bg', '(e.g #000000)' ) ; ?>
+                <?php echo $this->create_field( 'th text align', 'mc-th-text-align', '(left or center or right)' ) ; ?>
+                <?php echo $this->create_field( 'td text align', 'mc-text-align', '(left or center or right)' ) ; ?>
+                <?php echo $this->create_field( 'table width', 'mc-table-width', '(table width. px or %. e.g 500px, 100%)' ) ; ?>
                 <?php echo $this->create_field( 'th width', 'mc-width-th', '(e.g 30px)' ) ; ?>
                 <?php echo $this->create_field( 'th height', 'mc-height-th', '(e.g 30px)' ) ; ?>
                 <?php echo $this->create_field( 'td width', 'mc-width-td', '(e.g 30px)' ) ; ?>
                 <?php echo $this->create_field( 'td height', 'mc-height-td', '(e.g 30px)' ) ; ?>
                 <?php echo $this->create_field( 'th border', 'mc-border-th', '(e.g #000000)' ) ; ?>
                 <?php echo $this->create_field( 'td border', 'mc-border-td', '(e.g #000000)' ) ; ?>
+                <?php echo $this->create_field( '1st value', 'mc-value-1st', '(e.g -)' ) ; ?>
+                <?php echo $this->create_field( '2nd value', 'mc-value-2nd', '(e.g o)' ) ; ?>
+                <?php echo $this->create_field( '3rd value', 'mc-value-3rd', '(e.g x)' ) ; ?>
                 <?php echo $this->create_field( 'background color of 1st value', 'mc-bgcolor-1st', '(e.g #ffffff)' ) ; ?>
                 <?php echo $this->create_field( 'background color of 2nd value', 'mc-bgcolor-2nd', '(e.g #ffffff)' ) ; ?>
                 <?php echo $this->create_field( 'background color of 3rd value', 'mc-bgcolor-3rd', '(e.g #ffffff)' ) ; ?>
-                <?php echo $this->create_field( 'text align', 'mc-text-align', '(left or center or right)' ) ; ?>
-                <?php echo $this->create_field( 'tag attached for search post', 'mc-tag', '(only one tag)' ) ; ?>
+                <?php echo $this->create_field( 'tag attached for search post', 'mc-tag', '(tag name not tag id, tag slug. delimiter is comma.)' ) ; ?>
             </table>
             <p class="submit"><input type="submit" class="button-primary" value="<?php echo esc_attr( __('Save', 'mincalendar') ); ?>" /></p>
         </form>

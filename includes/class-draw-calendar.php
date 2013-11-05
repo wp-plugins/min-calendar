@@ -103,14 +103,29 @@ HTML;
                 $youbi  = date( 'w', $hizuke ); // 1日の曜日（0:日～6:土）
 
                 // mc-valueの設定
+<<<<<<< .mine
+                if ( isset( $options[ 'mc-value-1st' ] ) && $option === 'mc-value-1st' ) {
+                    $html .= self::set_holiday( '1st', $youbi);
+=======
                 if ( isset( $options[ 'mc-value-1st' ] ) && $option === 'mc-value-1st' ) {
                     $html .= self::set_holiday( '1st', $html, $youbi);
+>>>>>>> .r798993
                     $context = ( "\x20" === $options[ 'mc-value-1st' ] ) ? '&nbsp;' : $options[ 'mc-value-1st' ];
+<<<<<<< .mine
+                } else if ( isset( $options[ 'mc-value-2nd' ] ) && $option === 'mc-value-2nd' ) {
+                    $html .=  self::set_holiday( '2nd', $youbi);
+=======
                 } else if ( isset( $options[ 'mc-value-2nd' ] ) && $option === 'mc-value-2nd' ) {
                     $html .=  self::set_holiday( '2nd', $html, $youbi);
+>>>>>>> .r798993
                     $context = ( "\x20" === $options[ 'mc-value-2nd' ] ) ? '&nbsp;' : $options[ 'mc-value-2nd' ];
+<<<<<<< .mine
+                } else if ( isset( $options[ 'mc-value-3rd' ] ) && $option === 'mc-value-3rd' ) {
+                    $html .= self::set_holiday( '3rd', $youbi);
+=======
                 } else if ( isset( $options[ 'mc-value-3rd' ] ) && $option === 'mc-value-3rd' ) {
                     $html .= self::set_holiday( '3rd', $html, $youbi);
+>>>>>>> .r798993
                     $context = ( "\x20" === $options[ 'mc-value-3rd' ] ) ? '&nbsp;' : $options[ 'mc-value-3rd' ];
                 }
 
@@ -124,25 +139,26 @@ HTML;
 
                 // テキスト
                 if ( '' !== $texts[ $i ] ) {
-                    $text = esc_html( $texts[ $i ] );
+                    $text = nl2br( esc_html( $texts[ $i ] ) );
                 } else {
                     $text = '';
                 }
 
                 // context
-                $html .= '>' . $i . '<br>' . esc_html( $context ) ;
+                $html .= '><div class="td-inner">';
+                $html .= '<div class="mc-date">' . $i . '</div><div>' . esc_html( $context ) . '</div>';
                 if ( false === empty( $link ) ) {
-                    $html .= '<br>' . $link;
+                    $html .= '<div class="mc-link">' . $link . '</div>' ;
                 }
                 if ( false === empty( $text ) ) {
-                    $html .= '<br>' . $text;
+                    $html .= '<div class="mc-text">' . $text . '</div>';
                 }
-                $html .= '</td>' . PHP_EOL;
-            } else { // 日付が有効な場合の処理
+                $html .= '</div></td>' . PHP_EOL;
+            } else { // 日付が無効な場合
                 $html .= '<td>&nbsp;</td>' . PHP_EOL;
             }
             if ( ( ( $i + $w ) % 7 ) == 0 ) {
-                $html .= '</tr>' . PHP_EOL;
+                $html .= '</div></tr>' . PHP_EOL;
                 if ( $i >= $n ) {
                     break;
                 }
@@ -162,7 +178,7 @@ HTML;
      */
     private function set_holiday( $index, $youbi )
     {
-        $html = ' class="mc-bgcolor-' . $index;
+        $html =' class="mc-bgcolor-' . $index;
         if ( 0 === (int) $youbi ) {
             $html .= ' mincalendar-td-sun';
         } else if ( 6 === (int) $youbi ) {
