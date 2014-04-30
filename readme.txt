@@ -3,7 +3,7 @@ Contributors: s-hiroshi
 Tags: calendar
 Requires at least: 3.5.1
 Tested up to: 3.7.1
-Stable tag: 1.5.6
+Stable tag: 1.5.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -11,8 +11,8 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 create shortcode for minimal calendar
 
-管理画面でシンプルなカレンダー用ショートコードを作成します。
-作成したショートコードを投稿の入力エディタに挿入してカレンダーを表示します。
+管理画面でシンプルなカレンダー用ショートコードを作成できます。
+作成したショートコードを投稿エディタに挿入してカレンダーを表示します。
 
 == Frequently Asked Questions ==
 
