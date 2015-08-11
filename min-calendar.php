@@ -31,35 +31,33 @@ define( 'MC_VERSION', '1.4.4' );
 define( 'MC_REQUIRED_WP_VERSION', '3.5.1' );
 
 if ( ! defined( 'MC_PLUGIN_BASENAME' ) ) {
-    define( 'MC_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
+	define( 'MC_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 }
 if ( ! defined( 'MC_PLUGIN_NAME' ) ) {
-    define( 'MC_PLUGIN_NAME', trim( dirname( MC_PLUGIN_BASENAME ), '/' ) );
+	define( 'MC_PLUGIN_NAME', trim( dirname( MC_PLUGIN_BASENAME ), '/' ) );
 }
 if ( ! defined( 'MC_PLUGIN_DIR' ) ) {
-    define( 'MC_PLUGIN_DIR', untrailingslashit( dirname( __FILE__ ) ) );
+	define( 'MC_PLUGIN_DIR', untrailingslashit( dirname( __FILE__ ) ) );
 }
 if ( ! defined( 'MC_PLUGIN_URL' ) ) {
-    define( 'MC_PLUGIN_URL', untrailingslashit( plugins_url( '', __FILE__ ) ) );
+	define( 'MC_PLUGIN_URL', untrailingslashit( plugins_url( '', __FILE__ ) ) );
 }
 if ( ! defined( 'MC_CALENDAR_STYLESHEET' ) ) {
-    define( 'MC_CALENDAR_STYLESHEET' , MC_PLUGIN_DIR . '/includes/css/mincalendar.css' );
+	define( 'MC_CALENDAR_STYLESHEET', MC_PLUGIN_DIR . '/includes/css/mincalendar.css' );
 }
 /* If you or your client hate to see about donation, set this value false. */
 if ( ! defined( 'MC_SHOW_DONATION_LINK' ) ) {
-    define( 'MC_SHOW_DONATION_LINK', true );
+	define( 'MC_SHOW_DONATION_LINK', true );
 }
 if ( ! defined( 'MC_ADMIN_READ_CAPABILITY' ) ) {
-    define( 'MC_ADMIN_READ_CAPABILITY', 'edit_posts' );
+	define( 'MC_ADMIN_READ_CAPABILITY', 'edit_posts' );
 }
 if ( ! defined( 'MC_ADMIN_READ_WRITE_CAPABILITY' ) ) {
-    define( 'MC_ADMIN_READ_WRITE_CAPABILITY', 'publish_pages' );
+	define( 'MC_ADMIN_READ_WRITE_CAPABILITY', 'publish_pages' );
 }
 if ( ! defined( 'MC_VERIFY_NONCE' ) ) {
-    define( 'MC_VERIFY_NONCE', true );
+	define( 'MC_VERIFY_NONCE', true );
 }
 
-require_once MC_PLUGIN_DIR  . '/class-main.php';
+require_once MC_PLUGIN_DIR . '/class-main.php';
 new MC_Main();
-
-?>

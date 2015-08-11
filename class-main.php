@@ -1,121 +1,125 @@
 <?php
+
 /**
  * MC_Main
+ *
+ * min-cakendar controller class.
  */
 class MC_Main
 {
 
-    function __construct()
-    {
-        require_once MC_PLUGIN_DIR . '/admin/class-admin-controller.php';
-        require_once MC_PLUGIN_DIR . '/admin/class-admin-utilities.php';
-        require_once MC_PLUGIN_DIR . '/admin/class-admin-action.php';
-        require_once MC_PLUGIN_DIR . '/admin/class-appearance.php';
-        require_once MC_PLUGIN_DIR . '/admin/class-custom-field.php';
-        require_once MC_PLUGIN_DIR . '/admin/class-list-table.php';
-        require_once MC_PLUGIN_DIR . '/admin/class-post-form.php';
-        require_once MC_PLUGIN_DIR . '/admin/class-validation.php';
-        require_once MC_PLUGIN_DIR . '/includes/class-capabilities.php';
-        require_once MC_PLUGIN_DIR . '/includes/class-controller.php';
-        require_once MC_PLUGIN_DIR . '/includes/class-date.php';
-        require_once MC_PLUGIN_DIR . '/includes/class-draw-calendar.php';
-        require_once MC_PLUGIN_DIR . '/includes/class-post-factory.php';
-        require_once MC_PLUGIN_DIR . '/includes/class-post-wrapper.php';
-        require_once MC_PLUGIN_DIR . '/includes/class-utilities.php';
-        // get_currentuserinfoはpluggable.phpで定義。自動では読み込まれない。
-        require_once ABSPATH . WPINC . '/pluggable.php';
+	function __construct()
+	{
+		require_once MC_PLUGIN_DIR . '/admin/class-admin-controller.php';
+		require_once MC_PLUGIN_DIR . '/admin/class-admin-utilities.php';
+		require_once MC_PLUGIN_DIR . '/admin/class-admin-action.php';
+		require_once MC_PLUGIN_DIR . '/admin/class-appearance.php';
+		require_once MC_PLUGIN_DIR . '/admin/class-custom-field.php';
+		require_once MC_PLUGIN_DIR . '/admin/class-list-table.php';
+		require_once MC_PLUGIN_DIR . '/admin/class-post-form.php';
+		require_once MC_PLUGIN_DIR . '/admin/class-validation.php';
+		require_once MC_PLUGIN_DIR . '/includes/class-capabilities.php';
+		require_once MC_PLUGIN_DIR . '/common/class-day.php';
+		require_once MC_PLUGIN_DIR . '/view/class-calendar-drawing.php';
+		require_once MC_PLUGIN_DIR . '/view/class-calendar-maker.php';
+		require_once MC_PLUGIN_DIR . '/includes/class-post-factory.php';
+		require_once MC_PLUGIN_DIR . '/includes/class-post-wrapper.php';
+		require_once MC_PLUGIN_DIR . '/includes/class-utilities.php';
+		// get_currentuserinfo function is defined by pluggable.php. not automatically load.
+		require_once ABSPATH . WPINC . '/pluggable.php';
 
-        // 管理ユーザーのみ実行
-        global $user_level;
-        get_currentuserinfo();
+		// user level administrator can execute.
+		global $user_level;
+		get_currentuserinfo();
 
-        if ( 10 === (int) $user_level ) {
-            new MC_Capabilities();
-        }
+		if ( 10 === (int) $user_level ) {
+			new MC_Capabilities();
+		}
 
-        if ( is_admin() && 10 === (int) $user_level ) {
-            new MC_Admin_Controller();
-            add_action( 'admin_init', array( $this, 'upgrade' ) );
-            add_action( 'init', array( $this, 'init' ) );
-            add_action( 'activate_' . MC_PLUGIN_BASENAME, array( &$this, 'activate' ) );
-        } else {
-            new MC_Controller();
-        }
+		if ( is_admin() && 10 === (int) $user_level ) {
+			// 管理者に対する画面処理
+			$controller = new MC_Admin_Controller();
+			$controller->setup();
+			add_action( 'admin_init', array( $this, 'upgrade' ) );
+			add_action( 'init', array( $this, 'init' ) );
+			add_action( 'activate_' . MC_PLUGIN_BASENAME, array( &$this, 'activate' ) );
+		} else {
+			// 一般閲覧者への表示処理
+			$drawing = new MC_Calendar_Drawing();
+			$drawing->run();
+		}
 
-    }
-
-
-    /**
-     * Initialize Min Calendar plugin
-     */
-    public function init()
-    {
-        // L18N
-        load_plugin_textdomain( 'mincalendar', false, 'min-calendar/languages' );
-        // Custom Post Type
-        $this->register_post_types();
-    }
+	}
 
 
-    /**
-     * Min Calendar用カスタム投稿タイプ登録
-     */
-    private function register_post_types()
-    {
-        register_post_type(
-            MC_Utilities::get_post_type(),
-            array(
-                'labels'    => array(
-                    'name'          => 'Min Calendar',
-                    'singular_name' => 'Min Calendar',
-                ),
-                'rewrite'   => false,
-                'query_var' => false
-            )
-        );
-    }
+	/**
+	 * Initialize Min Calendar plugin
+	 */
+	public function init()
+	{
+		// L18N
+		load_plugin_textdomain( 'mincalendar', false, 'min-calendar/languages' );
+		// Custom Post Type
+		$this->register_post_types();
+	}
 
+	/**
+	 * Registration of Min Calendar custom post type
+	 */
+	private function register_post_types()
+	{
+		register_post_type(
+			'mincalendar',
+			array(
+				'labels'    => array(
+					'name'          => 'Min Calendar',
+					'singular_name' => 'Min Calendar',
+				),
+				'rewrite'   => false,
+				'query_var' => false
+			)
+		);
+	}
 
-    /**
-     *  activate and default settings
-     */
-    public function activate()
-    {
-        $opt = get_option( ( 'mincalendar') );
-        if ( $opt ) {
-            return;
-        }
+	/**
+	 *  activate and default settings
+	 */
+	public function activate()
+	{
+		$opt = get_option( ( 'mincalendar' ) );
+		if ( $opt ) {
+			return;
+		}
 
-        load_plugin_textdomain( 'mincalendar', false, 'min-calendar/languages' );
+		load_plugin_textdomain( 'mincalendar', false, 'min-calendar/languages' );
 
-        $this->register_post_types();
-        $this->upgrade();
+		$this->register_post_types();
+		$this->upgrade();
 
-    }
+	}
 
+	/**
+	 * Upgrading
+	 *
+	 * current version of option update
+	 */
+	public function upgrade()
+	{
+		$opt = get_option( 'mincalendar' );
 
-    /**
-     * Upgrading
-     *
-     * current version of option update
-     */
-    public function upgrade()
-    {
-        $opt = get_option( 'mincalendar' );
+		if ( ! is_array( $opt ) ) {
+			$opt = array();
+		}
 
-        if ( ! is_array( $opt ) ) {
-            $opt = array();
-        }
+		$old_ver = isset( $opt['version'] ) ? (string) $opt['version'] : '0';
+		$new_ver = MC_VERSION;
 
-        $old_ver = isset( $opt[ 'version' ] ) ? (string) $opt[ 'version' ] : '0';
-        $new_ver = MC_VERSION;
+		if ( $old_ver === $new_ver ) {
+			return;
+		}
 
-        if ( $old_ver === $new_ver ) {
-            return;
-        }
-
-        $opt[ 'version' ] = $new_ver;
-        update_option( 'mincalendar', $opt );
-    }
+		$opt['version'] = $new_ver;
+		update_option( 'mincalendar', $opt );
+	}
 
 }
