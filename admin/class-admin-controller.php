@@ -4,34 +4,33 @@
  * MC_Admin_Controller
  *
  * @property MC_List_Table $list_table
- * @property MC_Post_Form $post_form
+ * @property MC_Post_Form $form
  * @property MC_Appearance $appearance
- * @property MC_Manage_Form_Action $action
+ * @property MC_Manage_Form_Action $form_action
  */
 class MC_Admin_Controller
 {
-
-	/** @var MC_Manage_Form_Action */
-	public $action;
 	/** @var MC_Post_Form */
-	public $porst_form;
+	public $form;
+	/** @var MC_Manage_Form_Action */
+	public $form_action;
 	/** @var MC_Appearance */
 	public $appearance;
 	/** @var MC_List_Table */
 	public $list_table;
 
-
 	function __construct()
 	{
-		$this->porst_form = new MC_Post_Form();
-		$this->action     = new MC_Manage_Form_Action();
-		$this->appearance = new MC_Appearance();
+		$this->form        = new MC_Post_Form();
+		$this->form_action = new MC_Manage_Form_Action();
+		$this->appearance  = new MC_Appearance();
 	}
 
 	/**
 	 * 管理画面作成
 	 */
-	public function setup() {
+	public function setup()
+	{
 		add_action( 'admin_menu', array( &$this, 'admin_menu' ), 9 );
 		add_action( 'admin_enqueue_scripts', array( &$this, 'admin_enqueue_scripts' ) );
 	}
@@ -60,7 +59,7 @@ class MC_Admin_Controller
 				array( $this, 'admin_management_page' )
 			);
 			// MC_Manage_Form_Action->manage_postをコールバックに設定
-			add_action( 'load-' . $list_page, array( $this->action, 'manage_post' ) );
+			add_action( 'load-' . $list_page, array( $this->form_action, 'manage_post' ) );
 			// 外観ページ(カレンダーオプション)
 			add_submenu_page(
 				'mincalendar',
@@ -80,24 +79,25 @@ class MC_Admin_Controller
 	 */
 	public function admin_management_page()
 	{
-		$post_wrapper = $this->action->get_post_wrapper();
+		$post_wrapper = $this->form_action->get_post_wrapper();
 		if ( $post_wrapper ) {
 			// 編集画面
-			echo $this->get_edit_page($post_wrapper);
+			echo $this->get_edit_page( $post_wrapper );
 		} else {
 			// 一覧画面
 			echo $this->get_list_page();
 		}
 	}
-	
+
 	/**
 	 * 編集画面マークアップ取得
-	 * 
+	 *
 	 * @return string マークアップ
 	 */
-	public function get_edit_page($post_wrapper) {
-		$post_form = new MC_Post_Form();
-		$html      = $post_form->get_form( $post_wrapper );
+	public function get_edit_page( $post_wrapper )
+	{
+		$form = new MC_Post_Form();
+		$html = $form->get_form( $post_wrapper );
 		MC_Custom_Field::set_field( $post_wrapper, $html );
 		// get_htmlはエスケープ済みマークアップを返す
 		return $post_wrapper->get_html();
@@ -105,10 +105,11 @@ class MC_Admin_Controller
 
 	/**
 	 * 一覧画面マークアップ取得
-	 * 
+	 *
 	 * @return string マークアップ
 	 */
-	public function get_list_page() {
+	public function get_list_page()
+	{
 		$this->list_table = new MC_List_Table();
 		$this->list_table->prepare_items();
 
@@ -136,7 +137,7 @@ class MC_Admin_Controller
 		ob_clean();
 
 		$html .= '</form>' . PHP_EOL . '</div>';
-		
+
 		return $html;
 	}
 
@@ -210,7 +211,6 @@ class MC_Admin_Controller
 		);
 	}
 
-
 	/**
 	 * add_meta_boxのコールバック関数
 	 *
@@ -220,5 +220,4 @@ class MC_Admin_Controller
 	{
 		MC_Custom_Field::set_field( $params[0], $params[1] );
 	}
-
 }
