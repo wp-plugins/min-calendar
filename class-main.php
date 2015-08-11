@@ -11,7 +11,6 @@ class MC_Main
 	function __construct()
 	{
 		require_once MC_PLUGIN_DIR . '/admin/class-admin-controller.php';
-		require_once MC_PLUGIN_DIR . '/admin/class-admin-utilities.php';
 		require_once MC_PLUGIN_DIR . '/admin/class-manage-form-action.php';
 		require_once MC_PLUGIN_DIR . '/admin/class-appearance.php';
 		require_once MC_PLUGIN_DIR . '/admin/class-custom-field.php';
