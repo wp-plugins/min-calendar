@@ -1,12 +1,9 @@
 <?php
 /**
- * MC_Post_Wrapper
+ * カスタム投稿タイプラッパー
  *
- * カレンダー投稿のラッパー
+ * カスタム投稿タイプmincalendarのラッパークラスです。
  *
- * 投稿が新規が既存かを判定するプロパティをもつ
- *
- * @property MC_Utilities $utilities
  */
 class MC_Post_Wrapper {
 

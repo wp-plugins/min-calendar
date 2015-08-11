@@ -17,7 +17,7 @@ class MC_Post_Factory
         $post                 = get_post( $post_id );
 
         if ( ! empty( $post )
-            || MC_Utilities::$post_type === get_post_type( $post ) ) {
+            || 'mincalendar' === get_post_type( $post ) ) {
             $post_wrapper->set_initial( false );
             $post_wrapper->set_id( $post->ID );
             $post_wrapper->set_title( $post->post_title );

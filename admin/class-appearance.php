@@ -222,7 +222,7 @@ class MC_Appearance
 	{
 		wp_enqueue_style(
 			'mincalendar-appearance',
-			MC_Utilities::mc_plugin_url( 'admin/css/appearance.css' )
+			MC_PLUGIN_URL . '/admin/css/appearance.css'
 		);
 
 		if ( ! current_user_can( 'edit' ) ) {

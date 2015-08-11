@@ -72,7 +72,7 @@ class MC_Calendar_Drawing
 	{
 		wp_enqueue_style(
 			'mincalendar',
-			MC_Utilities::mc_plugin_url( 'includes/css/mincalendar.css' ),
+			MC_PLUGIN_URL . '/includes/css/mincalendar.css',
 			array(),
 			MC_VERSION,
 			'all'
@@ -87,7 +87,7 @@ class MC_Calendar_Drawing
 	{
 		wp_enqueue_style(
 			'mincalendar-base',
-			MC_Utilities::mc_plugin_url( 'includes/css/mincalendar-base.css' ),
+			MC_PLUGIN_URL . '/includes/css/mincalendar-base.css',
 			array(),
 			MC_VERSION,
 			'all'

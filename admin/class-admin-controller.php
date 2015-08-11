@@ -152,7 +152,7 @@ class MC_Admin_Controller
 
 		wp_enqueue_style(
 			'mincalendar-admin',
-			MC_Utilities::mc_plugin_url( 'admin/css/styles.css' ),
+			MC_PLUGIN_URL . '/admin/css/styles.css',
 			array( 'thickbox' ),
 			MC_VERSION,
 			'all'
@@ -160,7 +160,7 @@ class MC_Admin_Controller
 
 		wp_enqueue_script(
 			'mincalendar-admin-scripts',
-			MC_Utilities::mc_plugin_url( 'admin/js/scripts.js' ),
+			MC_PLUGIN_URL . '/admin/js/scripts.js',
 			array(
 				'jquery',
 				'thickbox',
@@ -171,7 +171,7 @@ class MC_Admin_Controller
 		);
 		wp_enqueue_script(
 			'mincalendar-admin',
-			MC_Utilities::mc_plugin_url( 'admin/js/admin.js' ),
+			MC_PLUGIN_URL . '/admin/js/admin.js',
 			array(),
 			MC_VERSION,
 			true
@@ -179,7 +179,7 @@ class MC_Admin_Controller
 
 		wp_enqueue_script(
 			'mincalendar-admin-custom-fields',
-			MC_Utilities::mc_plugin_url( 'admin/js/custom_fields.js' ),
+			MC_PLUGIN_URL . '/admin/js/custom_fields.js',
 			array(),
 			MC_VERSION,
 			true
@@ -187,7 +187,7 @@ class MC_Admin_Controller
 
 		wp_enqueue_script(
 			'mincalendar-admin-custom-fields_handler',
-			MC_Utilities::mc_plugin_url( 'admin/js/custom_fields_handler.js' ),
+			MC_PLUGIN_URL . '/admin/js/custom_fields_handler.js',
 			array(),
 			MC_VERSION,
 			true
