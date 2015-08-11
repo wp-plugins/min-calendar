@@ -10,6 +10,7 @@ class MC_Main
 
 	function __construct()
 	{
+		require_once MC_PLUGIN_DIR . '/common/class-day.php';
 		require_once MC_PLUGIN_DIR . '/admin/class-admin-controller.php';
 		require_once MC_PLUGIN_DIR . '/admin/class-manage-form-action.php';
 		require_once MC_PLUGIN_DIR . '/admin/class-appearance.php';
@@ -17,11 +18,10 @@ class MC_Main
 		require_once MC_PLUGIN_DIR . '/admin/class-list-table.php';
 		require_once MC_PLUGIN_DIR . '/admin/class-post-form.php';
 		require_once MC_PLUGIN_DIR . '/admin/class-validation.php';
-		require_once MC_PLUGIN_DIR . '/common/class-day.php';
-		require_once MC_PLUGIN_DIR . '/view/class-calendar-drawing.php';
-		require_once MC_PLUGIN_DIR . '/view/class-calendar-maker.php';
-		require_once MC_PLUGIN_DIR . '/includes/class-post-factory.php';
-		require_once MC_PLUGIN_DIR . '/includes/class-post-wrapper.php';
+		require_once MC_PLUGIN_DIR . '/admin/class-post-factory.php';
+		require_once MC_PLUGIN_DIR . '/admin/class-post-wrapper.php';
+		require_once MC_PLUGIN_DIR . '/user/class-calendar-drawing.php';
+		require_once MC_PLUGIN_DIR . '/user/class-calendar-maker.php';
 		// get_currentuserinfo function is defined by pluggable.php. not automatically load.
 		require_once ABSPATH . WPINC . '/pluggable.php';
 

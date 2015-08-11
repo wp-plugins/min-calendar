@@ -43,7 +43,7 @@ if ( ! defined( 'MC_PLUGIN_URL' ) ) {
 	define( 'MC_PLUGIN_URL', untrailingslashit( plugins_url( '', __FILE__ ) ) );
 }
 if ( ! defined( 'MC_CALENDAR_STYLESHEET' ) ) {
-	define( 'MC_CALENDAR_STYLESHEET', MC_PLUGIN_DIR . '/includes/css/mincalendar.css' );
+	define( 'MC_CALENDAR_STYLESHEET', MC_PLUGIN_DIR . '/view/css/mincalendar.css' );
 }
 /* If you or your client hate to see about donation, set this value false. */
 if ( ! defined( 'MC_SHOW_DONATION_LINK' ) ) {
