@@ -20,8 +20,8 @@ class MC_Main
 		require_once MC_PLUGIN_DIR . '/admin/class-validation.php';
 		require_once MC_PLUGIN_DIR . '/admin/class-post-factory.php';
 		require_once MC_PLUGIN_DIR . '/admin/class-post-wrapper.php';
-		require_once MC_PLUGIN_DIR . '/user/class-calendar-drawing.php';
-		require_once MC_PLUGIN_DIR . '/user/class-calendar-maker.php';
+		require_once MC_PLUGIN_DIR . '/reader/class-calendar-drawing.php';
+		require_once MC_PLUGIN_DIR . '/reader/class-calendar-maker.php';
 		// get_currentuserinfo function is defined by pluggable.php. not automatically load.
 		require_once ABSPATH . WPINC . '/pluggable.php';
 
