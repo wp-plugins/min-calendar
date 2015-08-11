@@ -1,12 +1,12 @@
 <?php
 /**
- * MC_Admin_Action
+ * MC_Manage_Form_Action
  *
  * Manage post form action.
  *
  * @property MC_Post_Wrapper $post_wrapper
  */
-class MC_Admin_Action
+class MC_Manage_Form_Action
 {
 
 	/** @var MC_Post_Wrapper */
@@ -26,17 +26,19 @@ class MC_Admin_Action
 	}
 
 	/**
-	 * 管理画面のmincalendarページを表示するときの処理
+	 * 管理画面でMin Calendar Postページ表示処理
+	 * 
+	 * wp-admin/admin.php?page=mincalendar&postid=1745&action=edit
 	 *
-	 * mincalendarページをロードしたときの処理順序
-	 * 1. 当メソッド(manage_post)<br>
+	 * Min Calendar Postページ表示処理順序
+	 * 
+	 * 1. 当メソッド(manage_post)
 	 * 2. MC_Admin_Controller->admin_management_page
 	 *
 	 * MC_Admin_Controller->admin_management_pageより先に処理される。
 	 */
 	public function manage_post()
 	{
-
 		$action = MC_Admin_Utility::get_current_action();
 		// save
 		if ( 'save' === $action ) {

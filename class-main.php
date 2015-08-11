@@ -3,7 +3,7 @@
 /**
  * MC_Main
  *
- * min-cakendar controller class.
+ * min calendar
  */
 class MC_Main
 {
@@ -40,31 +40,18 @@ class MC_Main
 			// 管理者に対する画面処理
 			$controller = new MC_Admin_Controller();
 			$controller->setup();
-			add_action( 'admin_init', array( $this, 'upgrade' ) );
-			add_action( 'init', array( $this, 'init' ) );
+			// アクティベートまたはアップレード時処理
 			add_action( 'activate_' . MC_PLUGIN_BASENAME, array( &$this, 'activate' ) );
+			add_action( 'admin_init', array( $this, 'upgrade' ) );
 		} else {
 			// 一般閲覧者への表示処理
 			$drawing = new MC_Calendar_Drawing();
 			$drawing->run();
 		}
-
-	}
-
-
-	/**
-	 * Initialize Min Calendar plugin
-	 */
-	public function init()
-	{
-		// L18N
-		load_plugin_textdomain( 'mincalendar', false, 'min-calendar/languages' );
-		// Custom Post Type
-		$this->register_post_types();
 	}
 
 	/**
-	 * Registration of Min Calendar custom post type
+	 * カスタム投稿タイプ(mincalendar)登録
 	 */
 	private function register_post_types()
 	{
@@ -82,44 +69,35 @@ class MC_Main
 	}
 
 	/**
-	 *  activate and default settings
+	 * 有効化処理
 	 */
 	public function activate()
 	{
-		$opt = get_option( ( 'mincalendar' ) );
-		if ( $opt ) {
+		$option = get_option( ( 'mincalendar' ) );
+		if ( $option ) {
 			return;
 		}
-
 		load_plugin_textdomain( 'mincalendar', false, 'min-calendar/languages' );
-
 		$this->register_post_types();
 		$this->upgrade();
-
 	}
 
 	/**
-	 * Upgrading
-	 *
-	 * current version of option update
+	 * アップグレード処理
 	 */
 	public function upgrade()
 	{
-		$opt = get_option( 'mincalendar' );
-
-		if ( ! is_array( $opt ) ) {
-			$opt = array();
+		$option = get_option( 'mincalendar' );
+		if ( ! is_array( $option ) ) {
+			$option = array();
 		}
-
-		$old_ver = isset( $opt['version'] ) ? (string) $opt['version'] : '0';
+		$old_ver = isset( $option['version'] ) ? (string) $option['version'] : '0';
 		$new_ver = MC_VERSION;
-
 		if ( $old_ver === $new_ver ) {
 			return;
 		}
-
-		$opt['version'] = $new_ver;
-		update_option( 'mincalendar', $opt );
+		$option['version'] = $new_ver;
+		update_option( 'mincalendar', $option );
 	}
 
 }
