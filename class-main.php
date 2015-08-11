@@ -23,7 +23,6 @@ class MC_Main
 		require_once MC_PLUGIN_DIR . '/view/class-calendar-maker.php';
 		require_once MC_PLUGIN_DIR . '/includes/class-post-factory.php';
 		require_once MC_PLUGIN_DIR . '/includes/class-post-wrapper.php';
-		require_once MC_PLUGIN_DIR . '/includes/class-utilities.php';
 		// get_currentuserinfo function is defined by pluggable.php. not automatically load.
 		require_once ABSPATH . WPINC . '/pluggable.php';
 
