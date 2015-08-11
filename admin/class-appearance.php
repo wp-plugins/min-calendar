@@ -305,12 +305,10 @@ class MC_Appearance
 			}
 		}
 
-
 		/*
 		 * 設定値取得
 		 */
 		$this->options = (array ) json_decode( get_option( 'mincalendar-options' ) );
-
 
 		/*
 		 * 表示

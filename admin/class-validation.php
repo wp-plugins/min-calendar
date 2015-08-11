@@ -1,8 +1,6 @@
 <?php
-
 class MC_Validation
 {
-
 	/**
 	 * カラー表記が16進数かをチェック
 	 *
@@ -28,7 +26,6 @@ class MC_Validation
 		return preg_replace( "/^([^#]+)$/", "#$1", $color );
 	}
 
-
 	/**
 	 * サイズ指定が数字または数字+(px|em|%)の形かチェック
 	 *
@@ -42,7 +39,6 @@ class MC_Validation
 		}
 		return false;
 	}
-
 
 	/**
 	 * 幅、縦の指定文字にpxがないとき追加
@@ -58,7 +54,6 @@ class MC_Validation
 		return $size;
 	}
 
-
 	/**
 	 * 配置指定チェック
 	 *
@@ -72,5 +67,4 @@ class MC_Validation
 		}
 		return false;
 	}
-
 }

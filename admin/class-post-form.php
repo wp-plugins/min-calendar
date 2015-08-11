@@ -16,7 +16,6 @@ class MC_Post_Form
 		return $this->form( $post_wrapper );
 	}
 
-
 	/**
 	 * get markup of min-calendar post form
 	 * 

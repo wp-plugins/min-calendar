@@ -1,4 +1,5 @@
 <?php
+
 /**
  * MC_Manage_Form_Action
  *
@@ -27,11 +28,11 @@ class MC_Manage_Form_Action
 
 	/**
 	 * 管理画面でMin Calendar Postページ表示処理
-	 * 
+	 *
 	 * wp-admin/admin.php?page=mincalendar&postid=1745&action=edit
 	 *
 	 * Min Calendar Postページ表示処理順序
-	 * 
+	 *
 	 * 1. 当メソッド(manage_post)
 	 * 2. MC_Admin_Controller->admin_management_page
 	 *
@@ -39,7 +40,10 @@ class MC_Manage_Form_Action
 	 */
 	public function manage_post()
 	{
-		$action = MC_Admin_Utility::get_current_action();
+		$action = false;
+		if ( isset( $_REQUEST['action'] ) && - 1 != $_REQUEST['action'] ) {
+			$action = $_REQUEST['action'];
+		}
 		// save
 		if ( 'save' === $action ) {
 			$this->save();
@@ -52,7 +56,7 @@ class MC_Manage_Form_Action
 		if ( 'delete' == $action ) {
 			$this->delete();
 		}
-		$post_id = isset( $_GET['postid'] ) ? (int) $_GET['postid'] : '';
+		$post_id      = isset( $_GET['postid'] ) ? (int) $_GET['postid'] : '';
 		$post_wrapper = null;
 
 		// new
@@ -190,7 +194,7 @@ class MC_Manage_Form_Action
 
 			$deleted += 1;
 		}
-		$query = array();
+		$query       = array();
 		$redirect_to = add_query_arg( $query, menu_page_url( 'mincalendar', false ) );
 		wp_safe_redirect( $redirect_to );
 		exit();

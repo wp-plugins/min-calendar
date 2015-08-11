@@ -6,12 +6,12 @@
  * @property MC_List_Table $list_table
  * @property MC_Post_Form $post_form
  * @property MC_Appearance $appearance
- * @property MC_Admin_Action $action
+ * @property MC_Manage_Form_Action $action
  */
 class MC_Admin_Controller
 {
 
-	/** @var MC_Admin_Action */
+	/** @var MC_Manage_Form_Action */
 	public $action;
 	/** @var MC_Post_Form */
 	public $porst_form;
@@ -24,12 +24,12 @@ class MC_Admin_Controller
 	function __construct()
 	{
 		$this->porst_form = new MC_Post_Form();
-		$this->action     = new MC_Admin_Action();
+		$this->action     = new MC_Manage_Form_Action();
 		$this->appearance = new MC_Appearance();
 	}
 
 	/**
-	 * 管理画面処理
+	 * 管理画面作成
 	 */
 	public function setup() {
 		add_action( 'admin_menu', array( &$this, 'admin_menu' ), 9 );
@@ -37,11 +37,12 @@ class MC_Admin_Controller
 	}
 
 	/**
-	 * 管理画面へMin Calendarページ追加
+	 * Min Calendar関連ページ作成
 	 */
 	public function admin_menu()
 	{
 		if ( current_user_can( 'edit' ) ) {
+			// メニュー追加
 			add_object_page(
 				'Min Calendar',
 				'Min Calendar',
@@ -49,9 +50,8 @@ class MC_Admin_Controller
 				'mincalendar',
 				array( $this, 'admin_management_page' )
 			);
-
-			// カスタム投稿タイプmincalendarの一覧
-			$post_list = add_submenu_page(
+			// 一覧ページ追加
+			$list_page = add_submenu_page(
 				'mincalendar',
 				__( 'Edit Calendar', 'mincalendar' ),
 				__( 'Edit', 'mincalendar' ),
@@ -59,11 +59,9 @@ class MC_Admin_Controller
 				'mincalendar',
 				array( $this, 'admin_management_page' )
 			);
-
-			// MC_Admin_Action->manage_postをコールバックに設定
-			add_action( 'load-' . $post_list, array( $this->action, 'manage_post' ) );
-
-			// カレンダーオプション設定画面
+			// MC_Manage_Form_Action->manage_postをコールバックに設定
+			add_action( 'load-' . $list_page, array( $this->action, 'manage_post' ) );
+			// 外観ページ(カレンダーオプション)
 			add_submenu_page(
 				'mincalendar',
 				__( 'Edit Appearance', 'mincalendar' ),
@@ -72,33 +70,45 @@ class MC_Admin_Controller
 				'mincalenar-appearance',
 				array( $this->appearance, 'admin_appearance_page' )
 			);
-
 		}
 	}
 
-
 	/**
-	 * Min Calendarページ呼び出し
+	 * Min Calendarページ管理
 	 *
-	 * 投稿の編集は編集画面表示しそれ他は投稿リストを表示する。
+	 * 既存の投稿は編集画面表示しその他はリストを表示します。
 	 */
 	public function admin_management_page()
 	{
 		$post_wrapper = $this->action->get_post_wrapper();
-
-		// 編集処理
 		if ( $post_wrapper ) {
-			$post_form = new MC_Post_Form();
-			$html      = $post_form->get_form( $post_wrapper );
-			MC_Custom_Field::set_field( $post_wrapper, $html );
-//            $this->add_meta_boxes();
-//            do_meta_boxes( 'mincalendar', 'normal', array( $post_wrapper, $html ) );
-			// get_htmlはエスケープ済みマークアップを返す
-			echo $post_wrapper->get_html();
-			return;
+			// 編集画面
+			echo $this->get_edit_page($post_wrapper);
+		} else {
+			// 一覧画面
+			echo $this->get_list_page();
 		}
+	}
+	
+	/**
+	 * 編集画面マークアップ取得
+	 * 
+	 * @return string マークアップ
+	 */
+	public function get_edit_page($post_wrapper) {
+		$post_form = new MC_Post_Form();
+		$html      = $post_form->get_form( $post_wrapper );
+		MC_Custom_Field::set_field( $post_wrapper, $html );
+		// get_htmlはエスケープ済みマークアップを返す
+		return $post_wrapper->get_html();
+	}
 
-		// リスト表示
+	/**
+	 * 一覧画面マークアップ取得
+	 * 
+	 * @return string マークアップ
+	 */
+	public function get_list_page() {
 		$this->list_table = new MC_List_Table();
 		$this->list_table->prepare_items();
 
@@ -125,12 +135,10 @@ class MC_Admin_Controller
 		$html .= ob_get_contents();
 		ob_clean();
 
-		$html .= '</form>' . PHP_EOL
-			. '</div>';
-
-		echo $html;
+		$html .= '</form>' . PHP_EOL . '</div>';
+		
+		return $html;
 	}
-
 
 	/**
 	 * 安全にJavaScriptを呼び出す処理
@@ -183,7 +191,6 @@ class MC_Admin_Controller
 			MC_VERSION,
 			true
 		);
-
 	}
 
 	/**
@@ -197,7 +204,7 @@ class MC_Admin_Controller
 		add_meta_box(
 			'mincalendar_meta_box_id',
 			__( 'Min Calendar Meta Box', 'mincalendar' ),
-			array( $this, 'set_field' ),
+			array( $this, 'set_field' ), // カスタムフィールド追加
 			'mincalendar',
 			'normal'
 		);
