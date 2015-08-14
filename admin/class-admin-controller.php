@@ -193,31 +193,4 @@ class MC_Admin_Controller
 			true
 		);
 	}
-
-	/**
-	 * 投稿フォームにカスタムフィールド挿入
-	 *
-	 * @param MC_POST_Wrapper $post_wrapper
-	 * @param string $html カスタムフィールドのマークアップ
-	 */
-	private function add_meta_boxes()
-	{
-		add_meta_box(
-			'mincalendar_meta_box_id',
-			__( 'Min Calendar Meta Box', 'mincalendar' ),
-			array( $this, 'set_field' ), // カスタムフィールド追加
-			'mincalendar',
-			'normal'
-		);
-	}
-
-	/**
-	 * add_meta_boxのコールバック関数
-	 *
-	 * @param array $param do_meta_boxに指定した引数
-	 */
-	public function set_field( $params )
-	{
-		MC_Custom_Field::set_field( $params[0], $params[1] );
-	}
 }
